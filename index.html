@@ -12,91 +12,184 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+            background-color: #ececec;
             color: #333;
+            line-height: 1.6;
+            font-size: 16px;
         }
 
         .container {
-            width: 80%;
+            width: 90%;
             margin: 0 auto;
         }
 
         header {
-            background-color: #2c3e50;
+            background: linear-gradient(135deg, #ff6f61, #ff6f61, #ffbc42);
             color: #fff;
-            padding: 40px 0;
+            padding: 100px 0;
             text-align: center;
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: fadeInHeader 2s ease-out;
         }
 
         header h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
+            font-size: 4.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            animation: fadeInText 2s ease-out;
         }
 
         header p {
-            font-size: 1.2em;
+            font-size: 1.5em;
+            font-weight: 500;
+            animation: fadeInText 2s ease-out 0.5s;
+        }
+
+        @keyframes fadeInHeader {
+            from {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
         .main-content {
-            background-color: #fff;
             padding: 60px 0;
             text-align: center;
+            background-color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: -50px;
+            border-radius: 15px;
+            animation: slideIn 1s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .main-content h2 {
-            font-size: 2.5em;
+            font-size: 2.8em;
             margin-bottom: 20px;
+            color: #333;
+            animation: fadeInText 2s ease-out;
         }
 
         .main-content p {
             font-size: 1.2em;
             margin-bottom: 30px;
+            color: #777;
+            animation: fadeInText 2s ease-out 0.5s;
         }
 
         .download-button {
             display: inline-block;
-            padding: 15px 30px;
-            background-color: #3498db;
+            padding: 20px 40px;
+            background-color: #ff6f61;
             color: #fff;
-            font-size: 1.2em;
+            font-size: 1.5em;
             text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
+            border-radius: 50px;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 18px rgba(255, 111, 97, 0.4);
+            animation: pulse 2s infinite;
         }
 
         .download-button:hover {
-            background-color: #2980b9;
+            background-color: #ff4c3b;
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 111, 97, 0.6);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
         }
 
         footer {
-            background-color: #2c3e50;
+            background-color: #333;
             color: #fff;
-            padding: 20px 0;
+            padding: 40px 0;
             text-align: center;
+            margin-top: 50px;
+        }
+
+        footer p {
+            font-size: 1.1em;
+            color: #bbb;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+
+            header h1 {
+                font-size: 3.5em;
+            }
+
+            .main-content h2 {
+                font-size: 2.2em;
+            }
+
+            .download-button {
+                padding: 15px 30px;
+                font-size: 1.3em;
+            }
         }
     </style>
 </head>
 <body>
+
     <header>
         <div class="container">
             <h1>Boost FPS</h1>
-            <p>Améliore les performances de ton PC avec notre application Boost FPS.</p>
+            <p>Maximise les performances de ton PC avec notre application Boost FPS.</p>
         </div>
     </header>
 
     <section class="main-content">
         <div class="container">
-            <h2>Boostez votre expérience de jeu</h2>
-            <p>Boost FPS est l'application idéale pour améliorer la fluidité de vos jeux et augmenter vos FPS. Profitez d'une expérience de jeu plus fluide et sans lag.</p>
+            <h2>Optimise ton expérience de jeu</h2>
+            <p>Boost FPS t'offre une expérience de jeu fluide et performante, sans lags et avec un meilleur rendu graphique. Télécharge maintenant et fais la différence !</p>
             <a href="https://mega.nz/file/vvoFmDpb#rkCKuASqIPvtVIoqys2J7_1ByZG0KJxa6ffpG7ROc08" class="download-button" target="_blank">Télécharger Boost FPS</a>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Boost FPS - Tous droits réservés.</p>
+            <p>&copy; 2025 Boost FPS. Optimise tes jeux maintenant !</p>
         </div>
     </footer>
+
 </body>
 </html>
