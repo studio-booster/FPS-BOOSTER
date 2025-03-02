@@ -20,7 +20,6 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            transition: filter 0.3s ease; /* Transition for blur effect */
         }
 
         header {
@@ -108,32 +107,49 @@
             cursor: pointer;
         }
 
-        /* Login Form (calé) */
-        .login-form {
+        /* Pop-up */
+        .popup, .overlay, .login-popup, .signup-popup {
+            display: none;
             position: fixed;
-            top: 20%;
+            z-index: 1000;
+        }
+
+        .overlay {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .popup, .login-popup, .signup-popup {
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
-            background-color: white;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            transform: translate(-50%, -50%);
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
             padding: 30px;
             text-align: center;
-            width: 90%;
-            max-width: 400px;
-            z-index: 1000;
-            display: block;
-            animation: slide-down 0.5s ease-in-out;
-            backdrop-filter: blur(5px); /* Add blur effect on background */
         }
 
-        .login-form h2 {
-            margin-bottom: 20px;
-            font-size: 1.8em;
-            color: #333;
+        .popup .close-btn, .login-popup .close-btn, .signup-popup .close-btn {
+            background: #ff6f61;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
         }
 
-        .login-form input[type="text"], .login-form input[type="password"] {
+        .popup .close-btn:hover, .login-popup .close-btn:hover, .signup-popup .close-btn:hover {
+            background: #ff4c3b;
+        }
+
+        .login-popup input[type="text"], .login-popup input[type="password"], .signup-popup input[type="text"], .signup-popup input[type="password"] {
             width: 80%;
             padding: 12px;
             margin: 10px 0;
@@ -141,10 +157,10 @@
             border: 1px solid #ccc;
         }
 
-        .login-form button {
+        .login-popup button, .signup-popup button {
             padding: 12px 30px;
             background-color: #ff6f61;
-            color: white;
+            color: #fff;
             border: none;
             border-radius: 30px;
             cursor: pointer;
@@ -153,28 +169,8 @@
             margin-top: 10px;
         }
 
-        .login-form button:hover {
+        .login-popup button:hover, .signup-popup button:hover {
             background-color: #ff4c3b;
-        }
-
-        .login-form .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: transparent;
-            border: none;
-            font-size: 1.5em;
-            color: #333;
-            cursor: pointer;
-        }
-
-        .login-form .close-btn:hover {
-            color: #ff6f61;
-        }
-
-        @keyframes slide-down {
-            0% { top: -100px; opacity: 0; }
-            100% { top: 20%; opacity: 1; }
         }
 
         footer {
@@ -193,6 +189,25 @@
             cursor: pointer;
             color: #ff6f61;
         }
+
+        /* Style for the 'Other apps' section */
+        .other-apps {
+            background-color: #fff;
+            padding: 30px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .other-apps h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .other-apps p {
+            font-size: 1.2em;
+        }
     </style>
 </head>
 <body>
@@ -209,8 +224,9 @@
         <a href="#" onclick="showSection('version')">Version</a>
         <a href="#" onclick="showSection('tuto')">Tutoriel</a>
         <a href="#" onclick="showSection('contact')">Contact</a>
-        <a href="#" id="login-link" onclick="openLoginForm()">Se connecter</a>
+        <a href="#" id="login-link" onclick="openLoginPopup()">Se connecter</a>
         <a href="#" id="logout-link" class="logout-link" onclick="logout()" style="display: none;">Se déconnecter</a>
+        <a href="#" id="signup-link" onclick="openSignupPopup()">S'inscrire</a>
     </nav>
 
     <div class="container">
@@ -243,37 +259,76 @@
             <p>📧 Email : <a href="mailto:studio-booster@gmail.com">studio-booster@gmail.com</a></p>
             <p>💬 Discord : <a href="https://discord.gg/gdk29Aac" target="_blank">Rejoindre le serveur</a></p>
         </section>
+
+        <!-- Other Apps Section -->
+        <section class="other-apps">
+            <h3>Autres applications</h3>
+            <p>Pour le moment, notre application <strong>Boost FPS</strong> est la seule disponible. Plus d'applications à venir !</p>
+        </section>
     </div>
 
     <footer>
         <p>&copy; 2025 Boost FPS. Optimise tes jeux maintenant !</p>
     </footer>
 
-    <!-- Login Form (Calé sur la page) -->
-    <div id="login-form" class="login-form">
-        <button class="close-btn" onclick="closeLoginForm()">&times;</button>
+    <!-- Popups -->
+    <div class="overlay" id="overlay" onclick="closePopup()"></div>
+    <div class="popup" id="popup">
+        <h2>Pourquoi mon antivirus détecte Boost FPS ?</h2>
+        <p>Notre application utilise des scripts d'optimisation avancés, ce qui peut parfois être considéré comme suspect par les antivirus. Il n'y a aucun virus, seulement des optimisations pour améliorer votre expérience de jeu.</p>
+        <button class="close-btn" onclick="closePopup()">Fermer</button>
+    </div>
+
+    <!-- Login Popup -->
+    <div class="overlay" id="login-overlay" onclick="closeLoginPopup()"></div>
+    <div class="login-popup" id="login-popup">
         <h2>Se connecter</h2>
         <form onsubmit="event.preventDefault(); login();">
             <input type="text" id="email" placeholder="Email" required><br>
             <input type="password" id="password" placeholder="Mot de passe" required><br>
             <button type="submit">Se connecter</button>
         </form>
+        <button class="close-btn" onclick="closeLoginPopup()">Fermer</button>
+    </div>
+
+    <!-- Signup Popup -->
+    <div class="overlay" id="signup-overlay" onclick="closeSignupPopup()"></div>
+    <div class="signup-popup" id="signup-popup">
+        <h2>S'inscrire</h2>
+        <form onsubmit="event.preventDefault(); signup();">
+            <input type="text" id="signup-email" placeholder="Email" required><br>
+            <input type="password" id="signup-password" placeholder="Mot de passe" required><br>
+            <button type="submit">S'inscrire</button>
+        </form>
+        <button class="close-btn" onclick="closeSignupPopup()">Fermer</button>
     </div>
 
     <script>
         let loggedIn = false;
         let users = []; // Simulate a database of users
 
-        // Show login form when page loads
-        function openLoginForm() {
-            document.getElementById("login-form").style.display = "block";
-            document.body.style.filter = "blur(5px)"; // Apply blur effect
+        // Show the login popup
+        function openLoginPopup() {
+            document.getElementById("login-overlay").style.display = "block";
+            document.getElementById("login-popup").style.display = "block";
         }
 
-        // Close login form
-        function closeLoginForm() {
-            document.getElementById("login-form").style.display = "none";
-            document.body.style.filter = "none"; // Remove blur effect
+        // Close the login popup
+        function closeLoginPopup() {
+            document.getElementById("login-overlay").style.display = "none";
+            document.getElementById("login-popup").style.display = "none";
+        }
+
+        // Show the signup popup
+        function openSignupPopup() {
+            document.getElementById("signup-overlay").style.display = "block";
+            document.getElementById("signup-popup").style.display = "block";
+        }
+
+        // Close the signup popup
+        function closeSignupPopup() {
+            document.getElementById("signup-overlay").style.display = "none";
+            document.getElementById("signup-popup").style.display = "none";
         }
 
         // Handle login
@@ -286,12 +341,29 @@
                 loggedIn = true;
                 document.getElementById("login-link").style.display = "none";
                 document.getElementById("logout-link").style.display = "inline";
-                document.getElementById("login-form").style.display = "none";
-                document.body.style.filter = "none"; // Remove blur effect
+                closeLoginPopup();
                 alert("Connexion réussie !");
             } else {
                 alert("Email ou mot de passe incorrect.");
             }
+        }
+
+        // Handle signup
+        function signup() {
+            const email = document.getElementById("signup-email").value;
+            const password = document.getElementById("signup-password").value;
+
+            // Check if user already exists
+            const userExists = users.some(u => u.email === email);
+            if (userExists) {
+                alert("Cet email est déjà utilisé. Veuillez en choisir un autre.");
+                return;
+            }
+
+            // Add new user to "database"
+            users.push({ email, password });
+            alert("Inscription réussie ! Vous pouvez maintenant vous connecter.");
+            closeSignupPopup();
         }
 
         // Handle logout
@@ -315,7 +387,13 @@
 
         // Popup (information about antivirus detection)
         function openPopup() {
-            alert("Les antivirus peuvent parfois signaler notre application comme faussement positive. Rassurez-vous, elle est sécurisée.");
+            document.getElementById("overlay").style.display = "block";
+            document.getElementById("popup").style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("overlay").style.display = "none";
+            document.getElementById("popup").style.display = "none";
         }
     </script>
 </body>
