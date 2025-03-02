@@ -117,7 +117,7 @@
         }
 
         /* Pop-up */
-        .popup, .overlay, .login-popup {
+        .popup, .overlay, .login-popup, .signup-popup {
             display: none;
             position: fixed;
             z-index: 1000;
@@ -131,7 +131,7 @@
             background: rgba(0, 0, 0, 0.5);
         }
 
-        .popup, .login-popup {
+        .popup, .login-popup, .signup-popup {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -144,7 +144,7 @@
             text-align: center;
         }
 
-        .popup .close-btn, .login-popup .close-btn {
+        .popup .close-btn, .login-popup .close-btn, .signup-popup .close-btn {
             background: #ff6f61;
             color: white;
             border: none;
@@ -154,11 +154,11 @@
             border-radius: 5px;
         }
 
-        .popup .close-btn:hover, .login-popup .close-btn:hover {
+        .popup .close-btn:hover, .login-popup .close-btn:hover, .signup-popup .close-btn:hover {
             background: #ff4c3b;
         }
 
-        .login-popup input[type="text"], .login-popup input[type="password"] {
+        .login-popup input[type="text"], .login-popup input[type="password"], .signup-popup input[type="text"], .signup-popup input[type="password"] {
             width: 80%;
             padding: 10px;
             margin: 10px 0;
@@ -166,7 +166,7 @@
             border: 1px solid #ccc;
         }
 
-        .login-popup button {
+        .login-popup button, .signup-popup button {
             padding: 12px 25px;
             background-color: #ff6f61;
             color: #fff;
@@ -178,7 +178,7 @@
             margin-top: 10px;
         }
 
-        .login-popup button:hover {
+        .login-popup button:hover, .signup-popup button:hover {
             background-color: #ff4c3b;
         }
 
@@ -188,6 +188,15 @@
             padding: 15px 0;
             text-align: center;
             margin-top: 20px;
+        }
+
+        .login-link {
+            cursor: pointer;
+        }
+
+        .logout-link {
+            cursor: pointer;
+            color: #ff6f61;
         }
     </style>
 </head>
@@ -205,7 +214,9 @@
         <a href="#" onclick="showSection('version')">Version</a>
         <a href="#" onclick="showSection('tuto')">Tutoriel</a>
         <a href="#" onclick="showSection('contact')">Contact</a>
-        <a href="#" onclick="openLoginPopup()">Se connecter</a>
+        <a href="#" id="login-link" onclick="openLoginPopup()">Se connecter</a>
+        <a href="#" id="logout-link" class="logout-link" onclick="logout()" style="display: none;">Se déconnecter</a>
+        <a href="#" id="signup-link" onclick="openSignupPopup()">S'inscrire</a>
     </nav>
 
     <div class="container">
@@ -244,6 +255,7 @@
         <p>&copy; 2025 Boost FPS. Optimise tes jeux maintenant !</p>
     </footer>
 
+    <!-- Popups -->
     <div class="overlay" id="overlay" onclick="closePopup()"></div>
     <div class="popup" id="popup">
         <h2>Pourquoi mon antivirus détecte Boost FPS ?</h2>
@@ -251,43 +263,113 @@
         <button class="close-btn" onclick="closePopup()">Fermer</button>
     </div>
 
+    <!-- Login Popup -->
     <div class="overlay" id="login-overlay" onclick="closeLoginPopup()"></div>
     <div class="login-popup" id="login-popup">
         <h2>Se connecter</h2>
-        <form>
-            <input type="text" placeholder="Email" required><br>
-            <input type="password" placeholder="Mot de passe" required><br>
+        <form onsubmit="event.preventDefault(); login();">
+            <input type="text" id="email" placeholder="Email" required><br>
+            <input type="password" id="password" placeholder="Mot de passe" required><br>
             <button type="submit">Se connecter</button>
         </form>
         <button class="close-btn" onclick="closeLoginPopup()">Fermer</button>
     </div>
 
+    <!-- Signup Popup -->
+    <div class="overlay" id="signup-overlay" onclick="closeSignupPopup()"></div>
+    <div class="signup-popup" id="signup-popup">
+        <h2>S'inscrire</h2>
+        <form onsubmit="event.preventDefault(); signup();">
+            <input type="text" id="signup-email" placeholder="Email" required><br>
+            <input type="password" id="signup-password" placeholder="Mot de passe" required><br>
+            <button type="submit">S'inscrire</button>
+        </form>
+        <button class="close-btn" onclick="closeSignupPopup()">Fermer</button>
+    </div>
+
     <script>
-        function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
-            document.getElementById(sectionId).classList.add('active');
+        let loggedIn = false; // Variable to track if user is logged in
+
+        // Show the login popup
+        function openLoginPopup() {
+            document.getElementById("login-overlay").style.display = "block";
+            document.getElementById("login-popup").style.display = "block";
         }
 
+        // Close the login popup
+        function closeLoginPopup() {
+            document.getElementById("login-overlay").style.display = "none";
+            document.getElementById("login-popup").style.display = "none";
+        }
+
+        // Show the signup popup
+        function openSignupPopup() {
+            document.getElementById("signup-overlay").style.display = "block";
+            document.getElementById("signup-popup").style.display = "block";
+        }
+
+        // Close the signup popup
+        function closeSignupPopup() {
+            document.getElementById("signup-overlay").style.display = "none";
+            document.getElementById("signup-popup").style.display = "none";
+        }
+
+        // Handle login
+        function login() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            // Simulating login (add your own backend logic here)
+            if (email && password) {
+                loggedIn = true;
+                document.getElementById("login-link").style.display = "none";
+                document.getElementById("logout-link").style.display = "inline";
+                closeLoginPopup();
+                alert("Connexion réussie !");
+            }
+        }
+
+        // Handle signup
+        function signup() {
+            const email = document.getElementById("signup-email").value;
+            const password = document.getElementById("signup-password").value;
+
+            // Simulating signup (add your own backend logic here)
+            if (email && password) {
+                alert("Inscription réussie ! Vous pouvez maintenant vous connecter.");
+                closeSignupPopup();
+            }
+        }
+
+        // Handle logout
+        function logout() {
+            loggedIn = false;
+            document.getElementById("login-link").style.display = "inline";
+            document.getElementById("logout-link").style.display = "none";
+            alert("Déconnexion réussie !");
+        }
+
+        // Function to switch sections
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            const activeSection = document.getElementById(sectionId);
+            if (activeSection) {
+                activeSection.classList.add('active');
+            }
+        }
+
+        // Popup (information about antivirus detection)
         function openPopup() {
-            document.getElementById("popup").style.display = "block";
             document.getElementById("overlay").style.display = "block";
+            document.getElementById("popup").style.display = "block";
         }
 
         function closePopup() {
-            document.getElementById("popup").style.display = "none";
             document.getElementById("overlay").style.display = "none";
-        }
-
-        function openLoginPopup() {
-            document.getElementById("login-popup").style.display = "block";
-            document.getElementById("login-overlay").style.display = "block";
-        }
-
-        function closeLoginPopup() {
-            document.getElementById("login-popup").style.display = "none";
-            document.getElementById("login-overlay").style.display = "none";
+            document.getElementById("popup").style.display = "none";
         }
     </script>
-
 </body>
 </html>
