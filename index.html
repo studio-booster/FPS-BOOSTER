@@ -257,13 +257,14 @@
     </header>
 
     <!-- Navigation -->
-    <nav>
+    <nav id="nav-links">
         <a href="#" onclick="showFrame('home-frame')" class="active">Accueil</a>
         <a href="#" onclick="showFrame('version-frame')">Version</a>
         <a href="#" onclick="showFrame('tuto-frame')">Tutoriel</a>
         <a href="#" onclick="showFrame('contact-frame')">Contact</a>
         <a href="#" id="login-link" onclick="showFrame('login-frame')">Se connecter</a>
         <a href="#" id="signup-link" onclick="showFrame('signup-frame')">S'inscrire</a>
+        <a href="#" id="logout-link" onclick="logout()" style="display:none;">Déconnexion</a>
     </nav>
 
     <div class="container">
@@ -306,6 +307,19 @@
 
     <script>
         const webhookUrl = "https://play.svix.com/in/e_M4lDWp8dx4feIfypDfe70NF82TN/";
+        const navLinks = document.getElementById('nav-links');
+
+        // Gérer l'état de l'utilisateur
+        let isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        let userEmail = localStorage.getItem('userEmail');
+        
+        if (isLoggedIn) {
+            // Si l'utilisateur est connecté, masquer les boutons de connexion et inscription et afficher le bouton de déconnexion
+            document.getElementById('login-link').style.display = 'none';
+            document.getElementById('signup-link').style.display = 'none';
+            document.getElementById('logout-link').style.display = 'inline-block';
+            navLinks.querySelector('.active').innerText = 'Bienvenue, ' + userEmail;
+        }
 
         function showFrame(frameId) {
             const frames = document.querySelectorAll('.frame');
@@ -322,55 +336,45 @@
             });
         }
 
-        // Envoi des données d'inscription au webhook
+        // Inscription
         async function signup() {
             const email = document.getElementById('signup-email').value;
             const password = document.getElementById('signup-password').value;
 
             if (email && password) {
-                const payload = { action: 'signup', email, password };
-                await sendDataToWebhook(payload);
+                localStorage.setItem('userEmail', email);
+                localStorage.setItem('isLoggedIn', 'false');
                 alert("Inscription réussie !");
                 hideAllFrames();
+                showFrame('login-frame');
             } else {
                 alert("Veuillez remplir tous les champs.");
             }
         }
 
-        // Envoi des données de connexion au webhook
+        // Connexion
         async function login() {
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
 
-            if (email && password) {
-                const payload = { action: 'login', email, password };
-                await sendDataToWebhook(payload);
+            if (email === localStorage.getItem('userEmail') && password) {
+                localStorage.setItem('isLoggedIn', 'true');
                 alert("Connexion réussie !");
                 hideAllFrames();
+                showFrame('home-frame');
             } else {
-                alert("Veuillez remplir tous les champs.");
+                alert("Erreur de connexion.");
             }
         }
 
-        // Fonction pour envoyer les données au webhook
-        async function sendDataToWebhook(payload) {
-            try {
-                const response = await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                if (response.ok) {
-                    console.log('Données envoyées avec succès');
-                } else {
-                    console.error('Erreur lors de l\'envoi des données');
-                }
-            } catch (error) {
-                console.error('Erreur de connexion au webhook:', error);
-            }
+        // Déconnexion
+        function logout() {
+            localStorage.setItem('isLoggedIn', 'false');
+            alert("Déconnexion réussie !");
+            showFrame('home-frame');
+            document.getElementById('login-link').style.display = 'inline-block';
+            document.getElementById('signup-link').style.display = 'inline-block';
+            document.getElementById('logout-link').style.display = 'none';
         }
     </script>
 
