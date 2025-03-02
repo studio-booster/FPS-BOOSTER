@@ -108,7 +108,37 @@
             border-radius: 5px;
             width: 90%;
             max-width: 600px;
-            text-align: center;
+        }
+
+        .antivirus-warning a {
+            color: #ff6f61;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .contact-info {
+            margin-top: 15px;
+        }
+
+        .contact-info p {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .discord-button {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #7289DA;
+            color: #fff;
+            font-size: 1.2em;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .discord-button:hover {
+            background-color: #5b6eae;
+            transform: scale(1.05);
         }
 
         footer {
@@ -133,6 +163,7 @@
         <a href="#" onclick="showSection('home')">Accueil</a>
         <a href="#" onclick="showSection('version')">Version</a>
         <a href="#" onclick="showSection('tuto')">Tutoriel</a>
+        <a href="#" onclick="showSection('contact')">Contact</a>
     </nav>
 
     <div class="container">
@@ -142,7 +173,7 @@
             
             <div class="antivirus-warning">
                 <p><strong>Avis important :</strong> Certains antivirus peuvent détecter notre application comme une menace à cause de la manière dont elle optimise les performances. <br>
-                <strong>Notre application est totalement sécurisée.</strong></p>
+                <strong><a href="#" onclick="openPopup()">En savoir plus</a></strong></p>
             </div>
 
             <a href="https://github.com/seyzperly572/New/releases/download/boostfps/boostfps2.0.exe" download="boostfps2.0.exe" class="download-button">Télécharger</a>
@@ -158,6 +189,15 @@
             <p>1. Télécharge Boost FPS.</p>
             <p>2. Désactive ton antivirus temporairement si nécessaire.</p>
             <p>3. Lance l'installation et suis les instructions.</p>
+        </section>
+
+        <section id="contact" class="section">
+            <h2>Contact Support</h2>
+            <div class="contact-info">
+                <p>Email : <a href="mailto:studio-booster@gmail.com">studio-booster@gmail.com</a></p>
+                <p>Rejoins notre serveur Discord :</p>
+                <a href="https://discord.gg/gdk29Aac" target="_blank" class="discord-button">Rejoindre Discord</a>
+            </div>
         </section>
     </div>
 
