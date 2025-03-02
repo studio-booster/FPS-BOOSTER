@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boost FPS - Application PC</title>
     <style>
+        /* Styles de base (inchangés) */
         * {
             margin: 0;
             padding: 0;
@@ -13,21 +14,14 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #ececec;
+            background-color: #f4f4f4;
             color: #333;
             line-height: 1.6;
             font-size: 16px;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1000px;
-            margin: auto;
-            padding: 20px;
-            flex: 1;
+            transition: filter 0.3s ease;
         }
 
         header {
@@ -39,7 +33,7 @@
         }
 
         header h1 {
-            font-size: 2.2em;
+            font-size: 3em;
             font-weight: bold;
         }
 
@@ -52,7 +46,7 @@
         nav a {
             color: #fff;
             text-decoration: none;
-            font-size: 1em;
+            font-size: 1.1em;
             padding: 8px 15px;
             display: inline-block;
             transition: background 0.3s;
@@ -64,11 +58,10 @@
 
         .section {
             display: none;
-            padding: 20px;
+            padding: 30px;
             background: #fff;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
-            text-align: center;
             margin-top: 20px;
         }
 
@@ -78,10 +71,10 @@
 
         .download-button {
             display: inline-block;
-            padding: 12px 25px;
+            padding: 15px 30px;
             background-color: #ff6f61;
             color: #fff;
-            font-size: 1.2em;
+            font-size: 1.3em;
             text-decoration: none;
             border-radius: 30px;
             transition: background-color 0.3s ease, transform 0.3s ease;
@@ -116,78 +109,81 @@
             cursor: pointer;
         }
 
-        /* Pop-up */
-        .popup, .overlay, .login-popup, .signup-popup {
-            display: none;
+        /* Login Form (calé) */
+        .login-form {
             position: fixed;
-            z-index: 1000;
-        }
-
-        .overlay {
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-        }
-
-        .popup, .login-popup, .signup-popup {
-            top: 50%;
+            top: 20%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateX(-50%);
+            background-color: white;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
-            width: 90%;
-            max-width: 500px;
-            padding: 20px;
+            padding: 30px;
             text-align: center;
+            width: 90%;
+            max-width: 400px;
+            z-index: 1000;
+            display: block;
+            animation: slide-down 0.5s ease-in-out;
+            backdrop-filter: blur(5px);
         }
 
-        .popup .close-btn, .login-popup .close-btn, .signup-popup .close-btn {
-            background: #ff6f61;
-            color: white;
-            border: none;
-            padding: 10px;
-            margin-top: 10px;
-            cursor: pointer;
-            border-radius: 5px;
+        .login-form h2 {
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            color: #333;
         }
 
-        .popup .close-btn:hover, .login-popup .close-btn:hover, .signup-popup .close-btn:hover {
-            background: #ff4c3b;
-        }
-
-        .login-popup input[type="text"], .login-popup input[type="password"], .signup-popup input[type="text"], .signup-popup input[type="password"] {
+        .login-form input[type="text"], .login-form input[type="password"] {
             width: 80%;
-            padding: 10px;
+            padding: 12px;
             margin: 10px 0;
             border-radius: 5px;
             border: 1px solid #ccc;
         }
 
-        .login-popup button, .signup-popup button {
-            padding: 12px 25px;
+        .login-form button {
+            padding: 12px 30px;
             background-color: #ff6f61;
-            color: #fff;
+            color: white;
             border: none;
             border-radius: 30px;
             cursor: pointer;
-            font-size: 1.1em;
+            font-size: 1.2em;
             width: 80%;
             margin-top: 10px;
         }
 
-        .login-popup button:hover, .signup-popup button:hover {
+        .login-form button:hover {
             background-color: #ff4c3b;
+        }
+
+        .login-form .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            font-size: 1.5em;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .login-form .close-btn:hover {
+            color: #ff6f61;
+        }
+
+        @keyframes slide-down {
+            0% { top: -100px; opacity: 0; }
+            100% { top: 20%; opacity: 1; }
         }
 
         footer {
             background-color: #333;
             color: #fff;
-            padding: 15px 0;
+            padding: 20px 0;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 40px;
         }
 
         .login-link {
@@ -214,9 +210,8 @@
         <a href="#" onclick="showSection('version')">Version</a>
         <a href="#" onclick="showSection('tuto')">Tutoriel</a>
         <a href="#" onclick="showSection('contact')">Contact</a>
-        <a href="#" id="login-link" onclick="openLoginPopup()">Se connecter</a>
+        <a href="#" id="login-link" class="login-link" onclick="openLoginForm()">Se connecter</a>
         <a href="#" id="logout-link" class="logout-link" onclick="logout()" style="display: none;">Se déconnecter</a>
-        <a href="#" id="signup-link" onclick="openSignupPopup()">S'inscrire</a>
     </nav>
 
     <div class="container">
@@ -239,8 +234,8 @@
 
         <section id="tuto" class="section">
             <h2>Tutoriel d'installation</h2>
-            <p>1. Télécharge Boost FPS.</p>
-            <p>2. Désactive ton antivirus temporairement si nécessaire.</p>
+            <p>1. Désactive ton antivirus temporairement si nécessaire.</p>
+            <p>2. Télécharge Boost FPS.</p>
             <p>3. Lance l'installation et suis les instructions.</p>
         </section>
 
@@ -255,67 +250,22 @@
         <p>&copy; 2025 Boost FPS. Optimise tes jeux maintenant !</p>
     </footer>
 
-    <!-- Popups -->
-    <div class="overlay" id="overlay" onclick="closePopup()"></div>
-    <div class="popup" id="popup">
-        <h2>Pourquoi mon antivirus détecte Boost FPS ?</h2>
-        <p>Notre application utilise des scripts d'optimisation avancés, ce qui peut parfois être considéré comme suspect par les antivirus. Il n'y a aucun virus, seulement des optimisations pour améliorer votre expérience de jeu.</p>
-        <button class="close-btn" onclick="closePopup()">Fermer</button>
-    </div>
-
-    <!-- Login Popup -->
-    <div class="overlay" id="login-overlay" onclick="closeLoginPopup()"></div>
-    <div class="login-popup" id="login-popup">
+    <!-- Login Form (Calé sur la page) -->
+    <div id="login-form" class="login-form">
+        <button class="close-btn" onclick="closeLoginForm()">&times;</button>
         <h2>Se connecter</h2>
         <form onsubmit="event.preventDefault(); login();">
             <input type="text" id="email" placeholder="Email" required><br>
             <input type="password" id="password" placeholder="Mot de passe" required><br>
             <button type="submit">Se connecter</button>
         </form>
-        <button class="close-btn" onclick="closeLoginPopup()">Fermer</button>
-    </div>
-
-    <!-- Signup Popup -->
-    <div class="overlay" id="signup-overlay" onclick="closeSignupPopup()"></div>
-    <div class="signup-popup" id="signup-popup">
-        <h2>S'inscrire</h2>
-        <form onsubmit="event.preventDefault(); signup();">
-            <input type="text" id="signup-email" placeholder="Email" required><br>
-            <input type="password" id="signup-password" placeholder="Mot de passe" required><br>
-            <button type="submit">S'inscrire</button>
-        </form>
-        <button class="close-btn" onclick="closeSignupPopup()">Fermer</button>
     </div>
 
     <script>
         let loggedIn = false;
         let users = []; // Simulate a database of users
 
-        // Show the login popup
-        function openLoginPopup() {
-            document.getElementById("login-overlay").style.display = "block";
-            document.getElementById("login-popup").style.display = "block";
-        }
-
-        // Close the login popup
-        function closeLoginPopup() {
-            document.getElementById("login-overlay").style.display = "none";
-            document.getElementById("login-popup").style.display = "none";
-        }
-
-        // Show the signup popup
-        function openSignupPopup() {
-            document.getElementById("signup-overlay").style.display = "block";
-            document.getElementById("signup-popup").style.display = "block";
-        }
-
-        // Close the signup popup
-        function closeSignupPopup() {
-            document.getElementById("signup-overlay").style.display = "none";
-            document.getElementById("signup-popup").style.display = "none";
-        }
-
-        // Handle login
+        // Function to handle login
         function login() {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
@@ -325,38 +275,31 @@
                 loggedIn = true;
                 document.getElementById("login-link").style.display = "none";
                 document.getElementById("logout-link").style.display = "inline";
-                closeLoginPopup();
+                document.getElementById("login-form").style.display = "none";
+                document.body.style.filter = "none"; // Remove blur effect
                 alert("Connexion réussie !");
+                localStorage.setItem('isLoggedIn', 'true'); // Save login state to localStorage
             } else {
                 alert("Email ou mot de passe incorrect.");
             }
         }
 
-        // Handle signup
-        function signup() {
-            const email = document.getElementById("signup-email").value;
-            const password = document.getElementById("signup-password").value;
-
-            // Check if user already exists
-            const userExists = users.some(u => u.email === email);
-            if (userExists) {
-                alert("Cet email est déjà utilisé. Veuillez en choisir un autre.");
-                return;
-            }
-
-            // Add new user to "database"
-            users.push({ email, password });
-            alert("Inscription réussie ! Vous pouvez maintenant vous connecter.");
-            closeSignupPopup();
-        }
-
-        // Handle logout
+        // Function to handle logout
         function logout() {
             loggedIn = false;
             document.getElementById("login-link").style.display = "inline";
             document.getElementById("logout-link").style.display = "none";
             alert("Déconnexion réussie !");
+            localStorage.removeItem('isLoggedIn'); // Remove login state from localStorage
         }
+
+        // Check if user is logged in on page load
+        window.onload = function() {
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                document.getElementById("login-link").style.display = "none";
+                document.getElementById("logout-link").style.display = "inline";
+            }
+        };
 
         // Function to switch sections
         function showSection(sectionId) {
@@ -371,13 +314,7 @@
 
         // Popup (information about antivirus detection)
         function openPopup() {
-            document.getElementById("overlay").style.display = "block";
-            document.getElementById("popup").style.display = "block";
-        }
-
-        function closePopup() {
-            document.getElementById("overlay").style.display = "none";
-            document.getElementById("popup").style.display = "none";
+            alert("Les antivirus peuvent parfois signaler notre application comme faussement positive. Rassurez-vous, elle est sécurisée.");
         }
     </script>
 </body>
