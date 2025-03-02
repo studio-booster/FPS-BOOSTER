@@ -13,104 +13,80 @@
 
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
+            background-color: #ececec;
             color: #333;
             line-height: 1.6;
-            scroll-behavior: smooth;
+            font-size: 16px;
         }
 
         .container {
             width: 90%;
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-        }
-
-        /* Barre de navigation */
-        nav {
-            background-color: #222;
-            color: #fff;
-            padding: 15px 0;
-            text-align: center;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        nav ul li {
-            display: inline;
-            margin: 0 20px;
-        }
-
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.2em;
-            transition: color 0.3s;
-        }
-
-        nav ul li a:hover {
-            color: #ff6f61;
-        }
-
-        /* Sections */
-        section {
-            padding: 80px 20px;
-            text-align: center;
-            min-height: 100vh;
+            padding: 20px;
         }
 
         header {
-            background: linear-gradient(135deg, #ff6f61, #ffbc42);
+            background: linear-gradient(135deg, #ff6f61, #ff6f61, #ffbc42);
             color: #fff;
-            padding: 160px 0 100px;
+            padding: 40px 0;
             text-align: center;
-            margin-top: 60px;
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.3);
         }
 
         header h1 {
-            font-size: 4.5em;
+            font-size: 2.5em;
             font-weight: bold;
-            text-transform: uppercase;
         }
 
-        header p {
-            font-size: 1.5em;
-        }
-
-        .main-content {
-            background-color: #fff;
-            padding: 60px 20px;
+        nav {
+            background: #444;
+            padding: 10px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
-            margin: -50px auto 50px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1em;
+            padding: 8px 15px;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background: #ff6f61;
+        }
+
+        .section {
+            display: none;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .section.active {
+            display: block;
         }
 
         .download-button {
             display: inline-block;
-            padding: 20px 50px;
+            padding: 12px 25px;
             background-color: #ff6f61;
             color: #fff;
-            font-size: 1.5em;
+            font-size: 1.2em;
             text-decoration: none;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 18px rgba(255, 111, 97, 0.4);
-            animation: pulse 2s infinite;
+            border-radius: 30px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            animation: pulse 1.5s infinite;
         }
 
         .download-button:hover {
             background-color: #ff4c3b;
-            transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(255, 111, 97, 0.6);
+            transform: scale(1.05);
         }
 
         @keyframes pulse {
@@ -122,11 +98,11 @@
         .antivirus-warning {
             background-color: #ffcc00;
             color: #333;
-            padding: 15px;
-            margin: 20px auto;
-            font-size: 1.1em;
+            padding: 10px;
+            margin: 15px auto;
+            font-size: 0.9em;
             border-radius: 5px;
-            width: 80%;
+            width: 90%;
             max-width: 600px;
         }
 
@@ -141,82 +117,71 @@
         }
 
         footer {
-            background-color: #222;
+            background-color: #333;
             color: #fff;
-            padding: 40px 0;
+            padding: 15px 0;
             text-align: center;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Barre de navigation -->
-    <nav>
-        <ul>
-            <li><a href="#home">Accueil</a></li>
-            <li><a href="#version">Version</a></li>
-            <li><a href="#tuto">Tutoriel</a></li>
-        </ul>
-    </nav>
-
-    <!-- Accueil -->
-    <header id="home">
+    <header>
         <div class="container">
             <h1>Boost FPS</h1>
-            <p>Maximise les performances de ton PC avec notre application Boost FPS.</p>
+            <p>Maximise les performances de ton PC avec Boost FPS.</p>
         </div>
     </header>
 
-    <section class="main-content">
-        <div class="container">
-            <h2>Optimise ton expérience de jeu</h2>
-            <p>Boost FPS t'offre une expérience de jeu fluide et performante, sans lags et avec un meilleur rendu graphique. Télécharge maintenant et fais la différence !</p>
+    <nav>
+        <a href="#" onclick="showSection('home')">Accueil</a>
+        <a href="#" onclick="showSection('version')">Version</a>
+        <a href="#" onclick="showSection('tuto')">Tutoriel</a>
+    </nav>
 
+    <div class="container">
+        <section id="home" class="section active">
+            <h2>Optimise ton expérience de jeu</h2>
+            <p>Boost FPS t'offre une expérience fluide et performante. Télécharge maintenant !</p>
+            
             <div class="antivirus-warning">
                 <p><strong>Avis important :</strong> Certains antivirus peuvent détecter notre application comme une menace à cause de la manière dont elle optimise les performances. <br>
-                    <strong><a href="#" onclick="toggleInfo()">En savoir plus</a></strong></p>
+                <strong><a href="#" onclick="toggleInfo()">En savoir plus</a></strong></p>
             </div>
 
             <div id="info" class="hidden">
                 <p>Notre application utilise des scripts d'optimisation avancés, ce qui peut parfois être considéré comme suspect par les antivirus. Il n'y a aucun virus, seulement des optimisations pour améliorer votre expérience de jeu.</p>
             </div>
 
-            <a href="https://github.com/seyzperly572/New/releases/download/boostfps/boostfps2.0.exe" download="boostfps2.0.exe" class="download-button">Télécharger Boost FPS</a>
-        </div>
-    </section>
+            <a href="https://github.com/seyzperly572/New/releases/download/boostfps/boostfps2.0.exe" download="boostfps2.0.exe" class="download-button">Télécharger</a>
+        </section>
 
-    <!-- Version -->
-    <section id="version">
-        <div class="container">
-            <h2>Versions</h2>
-            <p>Dernière version : <strong>2.0</strong></p>
-            <p>Historique des mises à jour :</p>
-            <ul>
-                <li>1.0 - Version initiale</li>
-                <li>1.5 - Optimisations diverses</li>
-                <li>2.0 - Améliorations de performance</li>
-            </ul>
-        </div>
-    </section>
+        <section id="version" class="section">
+            <h2>Version actuelle</h2>
+            <p>Boost FPS v2.0 - Dernière mise à jour : Mars 2025.</p>
+        </section>
 
-    <!-- Tutoriel -->
-    <section id="tuto">
-        <div class="container">
-            <h2>Comment utiliser Boost FPS ?</h2>
-            <p>1. Télécharge et installe l'application</p>
-            <p>2. Lance Boost FPS et ajuste les paramètres</p>
-            <p>3. Profite d'une meilleure fluidité sur tes jeux !</p>
-        </div>
-    </section>
+        <section id="tuto" class="section">
+            <h2>Tutoriel d'installation</h2>
+            <p>1. Télécharge Boost FPS.</p>
+            <p>2. Désactive ton antivirus temporairement si nécessaire.</p>
+            <p>3. Lance l'installation et suis les instructions.</p>
+        </section>
+    </div>
 
-    <!-- Pied de page -->
     <footer>
-        <div class="container">
-            <p>&copy; 2025 Boost FPS. Optimise tes jeux maintenant !</p>
-        </div>
+        <p>&copy; 2025 Boost FPS. Optimise tes jeux maintenant !</p>
     </footer>
 
     <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+
         function toggleInfo() {
             let info = document.getElementById("info");
             info.classList.toggle("hidden");
