@@ -288,7 +288,8 @@
     </div>
 
     <script>
-        let loggedIn = false; // Variable to track if user is logged in
+        let loggedIn = false;
+        let users = []; // Simulate a database of users
 
         // Show the login popup
         function openLoginPopup() {
@@ -319,13 +320,15 @@
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
 
-            // Simulating login (add your own backend logic here)
-            if (email && password) {
+            const user = users.find(u => u.email === email && u.password === password);
+            if (user) {
                 loggedIn = true;
                 document.getElementById("login-link").style.display = "none";
                 document.getElementById("logout-link").style.display = "inline";
                 closeLoginPopup();
                 alert("Connexion réussie !");
+            } else {
+                alert("Email ou mot de passe incorrect.");
             }
         }
 
@@ -334,11 +337,17 @@
             const email = document.getElementById("signup-email").value;
             const password = document.getElementById("signup-password").value;
 
-            // Simulating signup (add your own backend logic here)
-            if (email && password) {
-                alert("Inscription réussie ! Vous pouvez maintenant vous connecter.");
-                closeSignupPopup();
+            // Check if user already exists
+            const userExists = users.some(u => u.email === email);
+            if (userExists) {
+                alert("Cet email est déjà utilisé. Veuillez en choisir un autre.");
+                return;
             }
+
+            // Add new user to "database"
+            users.push({ email, password });
+            alert("Inscription réussie ! Vous pouvez maintenant vous connecter.");
+            closeSignupPopup();
         }
 
         // Handle logout
