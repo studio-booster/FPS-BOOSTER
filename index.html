@@ -77,16 +77,14 @@
 
         .section {
             background: #fff;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             padding: 30px;
             margin-top: 20px;
             border-radius: 10px;
-            display: none; /* Masque les sections par défaut */
-            width: 100%;
+            display: none;
         }
 
         .section.active {
-            display: block; /* Affiche la section quand elle est active */
+            display: block;
         }
 
         .download-button {
@@ -205,18 +203,6 @@
             background-color: #ff4c3b;
         }
 
-        .other-apps {
-            background: #fff;
-            border: 2px solid #333;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .other-apps p {
-            font-size: 1.2em;
-        }
     </style>
 </head>
 <body>
@@ -237,7 +223,7 @@
     </nav>
 
     <div class="container">
-        <!-- Accueil section masquée -->
+        <!-- Accueil section -->
         <section id="home" class="section active">
             <h2>Optimise ton expérience de jeu</h2>
             <p>Boost FPS t'offre une expérience fluide et performante. Télécharge maintenant !</p>
@@ -270,17 +256,31 @@
             <p>📧 Email : <a href="mailto:studio-booster@gmail.com">studio-booster@gmail.com</a></p>
             <p>💬 Discord : <a href="https://discord.gg/gdk29Aac" target="_blank">Rejoindre le serveur</a></p>
         </section>
-
-        <!-- Autres applications -->
-        <section class="other-apps">
-            <h3>Autres applications</h3>
-            <p>Pour le moment, notre application <strong>Boost FPS</strong> est la seule disponible. Plus d'applications à venir !</p>
-        </section>
     </div>
 
     <footer>
         <p>&copy; 2025 Boost FPS. Optimise tes jeux maintenant !</p>
     </footer>
+
+    <!-- Login Popup -->
+    <div id="login-overlay" class="overlay" onclick="closeLoginPopup()"></div>
+    <div id="login-popup" class="login-popup">
+        <h2>Se connecter</h2>
+        <input type="text" id="email" placeholder="Email" />
+        <input type="password" id="password" placeholder="Mot de passe" />
+        <button onclick="login()">Se connecter</button>
+        <button class="close-btn" onclick="closeLoginPopup()">Fermer</button>
+    </div>
+
+    <!-- Signup Popup -->
+    <div id="signup-overlay" class="overlay" onclick="closeSignupPopup()"></div>
+    <div id="signup-popup" class="signup-popup">
+        <h2>S'inscrire</h2>
+        <input type="text" id="signup-email" placeholder="Email" />
+        <input type="password" id="signup-password" placeholder="Mot de passe" />
+        <button onclick="signup()">S'inscrire</button>
+        <button class="close-btn" onclick="closeSignupPopup()">Fermer</button>
+    </div>
 
     <script>
         let loggedIn = false;
@@ -368,5 +368,6 @@
             }
         }
     </script>
+
 </body>
 </html>
