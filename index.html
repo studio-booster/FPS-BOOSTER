@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boost FPS - Application PC</title>
     <style>
-        /* Styles de base (inchangés) */
         * {
             margin: 0;
             padding: 0;
@@ -21,7 +20,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            transition: filter 0.3s ease;
+            transition: filter 0.3s ease; /* Transition for blur effect */
         }
 
         header {
@@ -125,7 +124,7 @@
             z-index: 1000;
             display: block;
             animation: slide-down 0.5s ease-in-out;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px); /* Add blur effect on background */
         }
 
         .login-form h2 {
@@ -210,7 +209,7 @@
         <a href="#" onclick="showSection('version')">Version</a>
         <a href="#" onclick="showSection('tuto')">Tutoriel</a>
         <a href="#" onclick="showSection('contact')">Contact</a>
-        <a href="#" id="login-link" class="login-link" onclick="openLoginForm()">Se connecter</a>
+        <a href="#" id="login-link" onclick="openLoginForm()">Se connecter</a>
         <a href="#" id="logout-link" class="logout-link" onclick="logout()" style="display: none;">Se déconnecter</a>
     </nav>
 
@@ -234,8 +233,8 @@
 
         <section id="tuto" class="section">
             <h2>Tutoriel d'installation</h2>
-            <p>1. Désactive ton antivirus temporairement si nécessaire.</p>
-            <p>2. Télécharge Boost FPS.</p>
+            <p>1. Télécharge Boost FPS.</p>
+            <p>2. Désactive ton antivirus temporairement si nécessaire.</p>
             <p>3. Lance l'installation et suis les instructions.</p>
         </section>
 
@@ -265,7 +264,19 @@
         let loggedIn = false;
         let users = []; // Simulate a database of users
 
-        // Function to handle login
+        // Show login form when page loads
+        function openLoginForm() {
+            document.getElementById("login-form").style.display = "block";
+            document.body.style.filter = "blur(5px)"; // Apply blur effect
+        }
+
+        // Close login form
+        function closeLoginForm() {
+            document.getElementById("login-form").style.display = "none";
+            document.body.style.filter = "none"; // Remove blur effect
+        }
+
+        // Handle login
         function login() {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
@@ -278,28 +289,18 @@
                 document.getElementById("login-form").style.display = "none";
                 document.body.style.filter = "none"; // Remove blur effect
                 alert("Connexion réussie !");
-                localStorage.setItem('isLoggedIn', 'true'); // Save login state to localStorage
             } else {
                 alert("Email ou mot de passe incorrect.");
             }
         }
 
-        // Function to handle logout
+        // Handle logout
         function logout() {
             loggedIn = false;
             document.getElementById("login-link").style.display = "inline";
             document.getElementById("logout-link").style.display = "none";
             alert("Déconnexion réussie !");
-            localStorage.removeItem('isLoggedIn'); // Remove login state from localStorage
         }
-
-        // Check if user is logged in on page load
-        window.onload = function() {
-            if (localStorage.getItem('isLoggedIn') === 'true') {
-                document.getElementById("login-link").style.display = "none";
-                document.getElementById("logout-link").style.display = "inline";
-            }
-        };
 
         // Function to switch sections
         function showSection(sectionId) {
