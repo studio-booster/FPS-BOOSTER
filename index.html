@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boost FPS - Application PC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,55 +13,73 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
             color: #333;
             line-height: 1.6;
             font-size: 16px;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            justify-content: space-between;
         }
 
         header {
             background: linear-gradient(135deg, #ff6f61, #ffbc42);
             color: #fff;
-            padding: 40px 0;
+            padding: 60px 20px;
             text-align: center;
             box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.3);
         }
 
         header h1 {
-            font-size: 3em;
-            font-weight: bold;
+            font-size: 3.5em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            margin-top: 10px;
         }
 
         nav {
             background: #444;
-            padding: 10px;
+            padding: 12px;
             text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         nav a {
             color: #fff;
             text-decoration: none;
             font-size: 1.1em;
-            padding: 8px 15px;
+            padding: 10px 20px;
             display: inline-block;
-            transition: background 0.3s;
+            transition: background 0.3s, color 0.3s;
+            margin: 0 10px;
+            border-radius: 25px;
         }
 
         nav a:hover {
             background: #ff6f61;
+            color: #fff;
+        }
+
+        .container {
+            padding: 30px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .section {
             display: none;
-            padding: 30px;
+            padding: 40px;
             background: #fff;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             margin-top: 20px;
+            text-align: center;
         }
 
         .section.active {
@@ -69,12 +88,12 @@
 
         .download-button {
             display: inline-block;
-            padding: 15px 30px;
+            padding: 15px 35px;
             background-color: #ff6f61;
             color: #fff;
-            font-size: 1.3em;
+            font-size: 1.2em;
             text-decoration: none;
-            border-radius: 30px;
+            border-radius: 50px;
             transition: background-color 0.3s ease, transform 0.3s ease;
             animation: pulse 1.5s infinite;
         }
@@ -93,18 +112,27 @@
         .antivirus-warning {
             background-color: #ffcc00;
             color: #333;
-            padding: 10px;
-            margin: 15px auto;
-            font-size: 0.9em;
-            border-radius: 5px;
-            width: 90%;
-            max-width: 600px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 1.1em;
+            border-radius: 10px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .antivirus-warning a {
             color: #ff6f61;
             text-decoration: underline;
             cursor: pointer;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 40px;
         }
 
         /* Pop-up */
@@ -139,10 +167,11 @@
             background: #ff6f61;
             color: white;
             border: none;
-            padding: 10px;
-            margin-top: 10px;
+            padding: 12px;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 30px;
+            width: 100%;
+            font-size: 1.1em;
         }
 
         .popup .close-btn:hover, .login-popup .close-btn:hover, .signup-popup .close-btn:hover {
@@ -162,7 +191,7 @@
             background-color: #ff6f61;
             color: #fff;
             border: none;
-            border-radius: 30px;
+            border-radius: 50px;
             cursor: pointer;
             font-size: 1.2em;
             width: 80%;
@@ -172,51 +201,13 @@
         .login-popup button:hover, .signup-popup button:hover {
             background-color: #ff4c3b;
         }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-            margin-top: 40px;
-        }
-
-        .login-link {
-            cursor: pointer;
-        }
-
-        .logout-link {
-            cursor: pointer;
-            color: #ff6f61;
-        }
-
-        /* Style for the 'Other apps' section */
-        .other-apps {
-            background-color: #fff;
-            padding: 30px;
-            margin-top: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .other-apps h3 {
-            font-size: 1.8em;
-            margin-bottom: 15px;
-        }
-
-        .other-apps p {
-            font-size: 1.2em;
-        }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="container">
-            <h1>Boost FPS</h1>
-            <p>Maximise les performances de ton PC avec Boost FPS.</p>
-        </div>
+        <h1>Boost FPS</h1>
+        <p>Maximise les performances de ton PC avec Boost FPS.</p>
     </header>
 
     <nav>
@@ -258,12 +249,6 @@
             <h2>Contact & Support</h2>
             <p>📧 Email : <a href="mailto:studio-booster@gmail.com">studio-booster@gmail.com</a></p>
             <p>💬 Discord : <a href="https://discord.gg/gdk29Aac" target="_blank">Rejoindre le serveur</a></p>
-        </section>
-
-        <!-- Other Apps Section -->
-        <section class="other-apps">
-            <h3>Autres applications</h3>
-            <p>Pour le moment, notre application <strong>Boost FPS</strong> est la seule disponible. Plus d'applications à venir !</p>
         </section>
     </div>
 
