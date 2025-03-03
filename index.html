@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -53,7 +53,7 @@
                 localStorage.setItem('userPassword', password);
 
                 // Envoi du message au webhook après inscription
-                sendToWebhook(`Nouvel utilisateur inscrit: ${email}`);
+                sendToWebhook(Nouvel utilisateur inscrit: ${email});
 
                 alert('Inscription réussie!');
                 hideAllFrames();
@@ -74,7 +74,7 @@
                 alert('Connexion réussie!');
 
                 // Envoi du message au webhook après connexion
-                sendToWebhook(`Utilisateur connecté: ${email}`);
+                sendToWebhook(Utilisateur connecté: ${email});
 
                 // Sauvegarder l'état de la connexion dans le localStorage
                 localStorage.setItem('isLoggedIn', 'true');
@@ -138,51 +138,9 @@
         window.onload = function() {
             checkLoginStatus();
         };
-
-        // Toggle de la visibilité du mot de passe (connexion et inscription)
-        document.getElementById('login-show-password').addEventListener('change', function () {
-            const passwordField = document.getElementById('login-password');
-            passwordField.type = this.checked ? 'text' : 'password';
-        });
-
-        document.getElementById('signup-show-password').addEventListener('change', function () {
-            const passwordField = document.getElementById('signup-password');
-            passwordField.type = this.checked ? 'text' : 'password';
-        });
     </script>
 
     <!-- Contenu de votre page HTML -->
-    <div id="home-frame" class="frame active">
-        <p>Page d'accueil</p>
-    </div>
-
-    <div id="login-frame" class="frame">
-        <h2>Connexion</h2>
-        <input type="email" id="login-email" placeholder="Email" required>
-        <input type="password" id="login-password" placeholder="Mot de passe" required>
-        <label><input type="checkbox" id="login-show-password"> Afficher le mot de passe</label>
-        <button onclick="login()">Se connecter</button>
-        <button onclick="hideAllFrames()">Retour</button>
-    </div>
-
-    <div id="signup-frame" class="frame">
-        <h2>Inscription</h2>
-        <input type="email" id="signup-email" placeholder="Email" required>
-        <input type="password" id="signup-password" placeholder="Mot de passe" required>
-        <label><input type="checkbox" id="signup-show-password"> Afficher le mot de passe</label>
-        <button onclick="signup()">S'inscrire</button>
-        <button onclick="hideAllFrames()">Retour</button>
-    </div>
-
-    <div id="login-link">
-        <button onclick="showFrame('login-frame')">Se connecter</button>
-    </div>
-    <div id="signup-link">
-        <button onclick="showFrame('signup-frame')">S'inscrire</button>
-    </div>
-    <div id="logout-link" style="display: none;">
-        <button onclick="logout()">Se déconnecter</button>
-    </div>
 
 </body>
 
