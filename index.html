@@ -343,6 +343,22 @@
     <script>
         const webhookUrl = "https://play.svix.com/in/e_M4lDWp8dx4feIfypDfe70NF82TN/";
 
+        // Vérifier l'état de la connexion et ajuster l'interface
+        window.onload = () => {
+            const userEmail = localStorage.getItem('userEmail');
+            const userPassword = localStorage.getItem('userPassword');
+            
+            if (userEmail && userPassword) {
+                document.getElementById('login-link').style.display = 'none';
+                document.getElementById('signup-link').style.display = 'none';
+                document.getElementById('logout-link').style.display = 'block';
+            } else {
+                document.getElementById('login-link').style.display = 'inline-block';
+                document.getElementById('signup-link').style.display = 'inline-block';
+                document.getElementById('logout-link').style.display = 'none';
+            }
+        };
+
         // Fonction pour afficher une frame spécifique
         function showFrame(frameId) {
             const frames = document.querySelectorAll('.frame');
