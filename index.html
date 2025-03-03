@@ -38,6 +38,11 @@
             font-size: 16px;
             width: 200px;
         }
+
+        label {
+            font-size: 14px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -64,6 +69,7 @@
         <h2>Connexion</h2>
         <input type="email" id="login-email" placeholder="Email" required>
         <input type="password" id="login-password" placeholder="Mot de passe" required>
+        <label><input type="checkbox" id="login-show-password"> Afficher le mot de passe</label>
         <button onclick="login()">Se connecter</button>
         <button onclick="hideAllFrames()">Retour</button>
     </div>
@@ -72,6 +78,7 @@
         <h2>Inscription</h2>
         <input type="email" id="signup-email" placeholder="Email" required>
         <input type="password" id="signup-password" placeholder="Mot de passe" required>
+        <label><input type="checkbox" id="signup-show-password"> Afficher le mot de passe</label>
         <button onclick="signup()">S'inscrire</button>
         <button onclick="hideAllFrames()">Retour</button>
     </div>
@@ -164,6 +171,17 @@
                 document.getElementById('logout-link').style.display = 'none';
             }
         }
+
+        // Toggle de la visibilité du mot de passe (connexion et inscription)
+        document.getElementById('login-show-password').addEventListener('change', function () {
+            const passwordField = document.getElementById('login-password');
+            passwordField.type = this.checked ? 'text' : 'password';
+        });
+
+        document.getElementById('signup-show-password').addEventListener('change', function () {
+            const passwordField = document.getElementById('signup-password');
+            passwordField.type = this.checked ? 'text' : 'password';
+        });
 
         // Appel de la fonction au chargement de la page
         window.onload = checkLoginStatus;
